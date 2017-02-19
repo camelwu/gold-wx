@@ -1,0 +1,133 @@
+<{include file="admin_tpl_head.html"}> <{if $action eq 'list'}>
+<table cellspacing=1 cellpadding=4 class=table>
+	<tr>
+		<th>搜索匹配值</th>
+		<th>搜索标题</th>
+		<th>所属分类</th>
+		<th>搜索key值</th>
+		<th>排序</th>
+		<th>管理</th>
+	</tr>
+	<{foreach from=$comments item=web}>
+	<tr align=center>
+		<td><{$web.ckey}></td>
+		<td><{$web.ctitle}></td>
+		<td><{$web.ctype}>=><{$web.csearch}></td>
+		<td><{$web.cmin}></td>
+		<td><{$web.display}></td>
+		<td><a href='?action=edit&ckey=<{$web.ckey}>'>编辑</a> <a
+			href="?action=delete&types=<{$contact.types}>&ckey=<{$web.ckey}>"
+			onclick="javascript:return del_nsort();">删除</a></td>
+	</tr>
+	<{/foreach}>
+	<tr class=tr1>
+		<td colspan=8><{$multipage}></td>
+	</tr>
+</table>
+<table width='90%' height=2>
+	<tr class=bg>
+		<td></td>
+	</tr>
+</table>
+<{else}>
+<form name=add_frm action='?action=handle' method=post>
+	<table cellspacing=1 cellpadding=4 class=table>
+		<tr>
+			<td class=td colspan=2>添加<{$tit}></td>
+		</tr>
+		<input type=hidden name='ckeys' value='<{$info.ckey}>'>
+		<tr>
+			<td width="14%" align="right">搜索匹配值：</td>
+			<td width="86%"><input name="ckey" type="text" class="INPUT"
+				id="ckey" value="<{$info.ckey}>" size="20" maxlength="20"<{if
+				$info.ckey ne ''}>readonly<{/if}>></td>
+		</tr>
+		<tr>
+			<td width="14%" align="right">搜索标题：</td>
+			<td width="86%"><input name="ctitle" type="text" class="INPUT"
+				id="title" value="<{$info.ctitle}>" size="20" maxlength="20"></td>
+		</tr>
+		<tr>
+			<td align="right">所属分类：</td>
+			<td><select name=ctype> <{html_options options=$ctype
+					selected=$info.ctype}>
+			</select> <select name=csearch> <{html_options
+					options=$Config.csearch selected=$info.csearch}>
+			</select></td>
+		</tr>
+		<tr>
+			<td align="right">排序：</td>
+			<td><input name="display" type="text" value="<{$info.display}>"
+				size="10"></td>
+		</tr>
+		<tr>
+			<td align="right">搜索key值：</td>
+			<td><input name="cmin" type="text" class="INPUT" id="cmin"
+				value="<{$info.cmin}>" size="40">(可手工输入：价格范围中间用,隔开)</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><select name=cselected> <{html_options
+					options=$Config.cselected selected=$info.cselected}>
+			</select>
+				<div id="content"></div></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td height=30><input type=button value='提交添加'
+				onclick="tijiao();"> <input type=reset value='重新填写'>
+				<input type=button name=go_back value='返回上一页'
+				onClick="javascript:location.href='?c_id=0';"></td>
+		</tr>
+
+	</table>
+
+	<script language=javascript>
+		var ckey = $("input[name='ckey']");
+		ckey_init();
+		ckey.blur(ckey_init);
+		function ckey_init() {
+			$.getJSON("getajax.php?q=getsearchhtml&ckeys=<{$info.ckey}>&ckey="
+					+ ckey.val(), function(data) {
+				ckey.attr('value', data.html);
+			});
+		}
+		var cselected = $("select[name='cselected']");
+
+		cselected_init();
+		cselected.change(cselected_init);
+		function cselected_init() {
+			var url = "getajax.php?q=getcmin&cmin=<{$info.cmin}>&cselected="
+					+ cselected.val();
+			$("#content").load(url);
+		}
+
+		var ctitle = $("input[name='ctitle']");
+		var cmin = $("input[name='cmin']");
+
+		function tijiao() {
+			if (ckey.val() == "") {
+				alert("搜索匹配值不能为空");
+				return false;
+			}
+			if (ctitle.val() == "") {
+				alert("请输入标题");
+				return false;
+			} else {
+				$("form[name='add_frm']").submit();
+			}
+
+		}
+	</script>
+
+</form>
+<{/if}>
+
+<script language=javascript>
+	function del_nsort() {
+		var cf = window.confirm("是否确定该操作？");
+		return cf;
+	}
+</script>
+<{include file="admin_tpl_foot.html"}>

@@ -1,0 +1,176 @@
+<!DOCTYPE HTML><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="green">
+<meta name="Keywords" content="北京旅游,北京地接,金桥旅游网">
+<meta name="Description" content="准特许经营大陆居民赴台旅游业务,中国金桥旅游有限公司以其经营实力先后加入中国旅游协会、中国旅行协会、">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/splash/splash-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="images/splash/splash-icon-big.png">
+<link rel="apple-touch-startup-image" href="images/splash/splash-screen.png" 	media="screen and (max-device-width: 320px)" />  
+<link rel="apple-touch-startup-image" href="images/splash/splash-screen@2x.png" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" /> 
+<link rel="apple-touch-startup-image" href="images/splash/splash-screen-six.png" media="(device-width: 375px)">
+<link rel="apple-touch-startup-image" href="images/splash/splash-screen-six-plus.png" media="(device-width: 414px)">
+<link rel="apple-touch-startup-image" sizes="640x1096" href="images/splash/splash-screen@3x.png" />
+<link rel="apple-touch-startup-image" sizes="1024x748" href="images/splash/splash-screen-ipad-landscape" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : landscape)" />
+<link rel="apple-touch-startup-image" sizes="768x1004" href="images/splash/splash-screen-ipad-portrait.png" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : portrait)" />
+<link rel="apple-touch-startup-image" sizes="1536x2008" href="images/splash/splash-screen-ipad-portrait-retina.png"   media="(device-width: 768px)	and (orientation: portrait)	and (-webkit-device-pixel-ratio: 2)"/>
+<link rel="apple-touch-startup-image" sizes="1496x2048" href="images/splash/splash-screen-ipad-landscape-retina.png"   media="(device-width: 768px)	and (orientation: landscape)	and (-webkit-device-pixel-ratio: 2)"/>
+
+<title>旅游_旅游网_旅游线路_自助游_自驾游_公司旅游_金桥旅游网</title>
+
+<link href="styles/framework.css" 		 rel="stylesheet" type="text/css">
+<link href="styles/style.css"     		 rel="stylesheet" type="text/css">
+<link href="styles/owl.theme.css" 		 rel="stylesheet" type="text/css">
+<link href="styles/swipebox.css"		 rel="stylesheet" type="text/css">
+<link href="styles/font-awesome.css"	 rel="stylesheet" type="text/css">
+<link href="styles/animate.css"			 rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/jqueryui.js"></script>
+<script type="text/javascript" src="scripts/framework.plugins.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+</head>
+<body> 
+
+<{include file="./moban/loader.tpl"}>
+
+
+<div class="all-elements">
+    <{include file="./moban/sidebar.tpl"}>
+    <{include file="./moban/header.tpl"}>
+
+    <!-- Page Content-->
+    <div id="content" class="snap-content">        
+        <div class="slider-container full-bottom">
+            <div class="homepage-slider" data-snap-ignore="true">                
+                <!--homepage-left|center|right-caption--><{foreach name=banner item=cont from=$banner}><div>
+                    <div class="overlay"></div>
+                    <div class="homepage-slider-caption homepage-left-caption">
+                        <h3><{$cont.title}></h3>
+                        <p><{$cont.content}></p>
+                    </div>
+                    <a href="<{$cont.mypath}>"><img src="<{$cont.url}>" class="responsive-image" alt="img"></a>
+                </div><{/foreach}>
+            </div>
+        </div>
+        
+        <div class="content">            
+            <div class="container no-bottom">
+                <h3>Welcome!</h3>
+                <p>生命中再无聊的时光也是限量版，行走升值限量，让您的出行和发呆一样简单^-^</p>
+
+            </div>
+            <div class="decoration"></div>
+            
+            <div class="content-heading full-bottom">
+                <h2>特色推荐</h2>
+                <em>我们只向您推荐好玩的、舒心的旅游线路，让您的假期真正在“旅行”！</em>
+                <i class="fa fa-cog"></i>
+            </div>
+            <div class="decoration"></div>
+            
+            <div class="container no-bottom">
+                <!-- Page Columns-->
+            	<{foreach name=route item=xl from=$hots}><div class="one-half-responsive<{if $smarty.foreach.route.index is odd by 1}> last-column<{/if}>">
+                    <p class="thumb-<{if $smarty.foreach.route.index is even by 1}>left<{else}>right<{/if}> no-bottom">
+                        <img src="<{$xl.url}>" alt="<{$xl.title}>">
+                        <strong><a href="feature/<{$xl.id}>"><{$xl.title}></a></strong>
+                        <em><br><{$xl.feature}></em>
+                    </p>
+                    <div class="thumb-clear"></div>
+                </div>
+                <div class="decoration hide-if-responsive"></div><{/foreach}>
+                
+             </div>
+            <div class="decoration"></div>
+            
+            <div class="content-heading full-bottom">
+                <h2>达人专线</h2>
+                <em>高质量的自由行线路，必定能满足挑剔的您；还在等什么，走过路过千万别错过哇！！</em>
+                <i class="fa fa-flag"></i>
+            </div>
+            
+            <div class="decoration"></div>
+            <div class="container">
+                <a href="#" class="next-staff"></a>
+                <a href="#" class="prev-staff"></a>
+                <div class="staff-slider" data-snap-ignore="true">
+                    <{foreach name=free item=xl from=$cjfree}><div>
+                        <div class="staff-item">
+                            <img src="<{$xl.url}>" alt="<{$xl.title}>">
+                            <h4><{$xl.title}></h4>
+                            <em><{$xl.city1}>•<{$xl.city2}></em>
+                            <strong><{$xl.feature}></strong>
+                            <a href="free/<{$xl.id}>" class="button button-green center-button">View</a>
+                        </div>
+                    </div><{/foreach}>
+                    
+                </div>
+            </div>  
+            <div class="decoration"></div>
+            
+            <div class="content-heading full-bottom">
+                <h2>专题活动</h2>
+                <em>我们定期会有一些专门的活动：滑雪、温泉、主题乐园等，敬请期待吧！</em>
+                <i class="fa fa-star"></i>
+            </div>
+            
+        	<div class="decoration"></div>
+            <div class="container">
+                <div class="one-half-responsive">
+                    <img src="<{$project.url}>" alt="<{$project.title}>" class="responsive-image">
+                </div>
+                <div class="one-half-responsive last-column">
+                    <h3 class="center-if-mobile no-bottom"><a href="tour/<{$project.id}>"><{$project.name}></a></h3>
+                    <em class="center-if-mobile small-text half-bottom"><{$project.title}></em>
+                    <p class="center-if-mobile no-bottom"><{$project.feature}></p>
+                </div>
+            </div>
+            <div class="decoration"></div>
+
+            <div class="content-heading full-bottom">
+                <h2>旅游攻略</h2>
+                <em>不知道怎么走？各个国家有哪些注意事项？不要紧，来这里看看吧！也欢迎来这里分享！</em>
+                <i class="fa fa-quote-right"></i>
+            </div>
+            
+            <div class="decoration"></div>       
+            <div class="quote-slider full-bottom" data-snap-ignore="true">
+                <{foreach name=books item=news from=$news}><div>
+                    <h4>
+                        <{$news.word}>
+                    </h4>
+                    <a href="/blog/<{$news.id}>"><{$news.addtime}> - Read More</a>
+                </div><{/foreach}>
+                
+            </div>
+            <div class="decoration"></div> 
+            
+            <div class="content-heading full-bottom">
+                <h2>景点门票</h2>
+                <em>我们为您精心准备的景点，来这里看世界！</em>
+                <i class="fa fa-camera"></i>
+            </div>
+            
+            <div class="decoration"></div> 
+            <ul class="gallery square-thumb">
+                <{foreach name=sight item=jd from=$scenic}><li><a class="swipebox" href="<{$jd.url}>" title="<{$jd.title}> 价格：￥<{$jd.price1}>元"><img src="<{$jd.url}>" alt="img" /></a><br><a href="/sight/<{$jd.id}>"><{$jd.title}></a></li><{/foreach}>
+                <!--<li><a class="swipebox" href="images/pictures/4.jpg" title="An awesome gallery!"><img src="images/pictures/4s.jpg" alt="img" /></a></li>-->
+            </ul>
+            
+            <div class="decoration"></div>
+            
+        </div>
+		<{include file="./moban/footer.tpl"}>
+        
+    </div>
+
+	<{include file="./moban/share.tpl"}>
+
+</div>
+
+</body>
+

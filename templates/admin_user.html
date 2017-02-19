@@ -1,0 +1,37 @@
+<{include file="./templates/admin_tpl_head.html"}>
+<table cellspacing=1 cellpadding=4 class=table>
+	<form name=sel_form action='?action=delete' method=post>
+		<tr>
+			<th><input type="checkbox" name="sel_all" value="yes"></th>
+			<th>用户</th>
+			<th>性别</th>
+			<th>所属地</th>
+			<th>分组</th>
+			<th>关注时间</th>
+			<th>管理</th>
+		</tr>
+		<tbody id="usergroups"><{if $totalnum==0}><tr>
+			<td colspan=7>没有数据</td>
+		</tr>
+		<{else}><{foreach name=user item=user from=$comments}><tr align="center">
+			<td><input type="checkbox" name="sel_id" value="<{$user.openid}>"></td>
+			<td align="left" valign="middle"><img src='<{$user.headimgurl}>' width=132 height=132> <{$user.nickname}></td>
+			<td><{$user.sex}></td>
+			<td><{$user.province}></td>
+			<td><{$user.groupid}></td>
+			<td><{$user.time}></td>
+			<td><a href='?action=edit&id=<{$user.id}>'>编辑</a></td>
+		</tr><{/foreach}></tbody>
+		<tr>
+			<td colspan="7"><{$multipage}></td>
+		</tr>
+		<tr>
+			<td colspan="7">操作：<input type="button" value="下载更新" onclick="window.location='?action=update';"></td>
+		</tr><{/if}>
+	</form>
+</table>
+
+<script type="text/javascript">
+
+</script>
+<{include file="./templates/admin_tpl_foot.html"}>

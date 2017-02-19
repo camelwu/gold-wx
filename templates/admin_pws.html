@@ -1,0 +1,48 @@
+<{include file="./templates/admin_tpl_log.html"}>
+	<table cellspacing=1 cellpadding=4 class=table>
+        <tr>
+            <th colspan=2>修改<{$tit}></th>
+        </tr>
+        <form name='admin_frm' action='?action=handle' method='post' onsubmit="return checkfrm(this);">
+        <tr>
+		<td width='20%'>用户：</td>
+		<td width='80%'><{$name}></td>
+		</tr>
+		<tr>
+		<td>旧密码：</td>
+		<td><input type=password name=oldpwd size=30 maxlength=16 value=''>&nbsp;<font class=red>*</font></td>
+		</tr>
+        <tr>
+		<td>新密码：</td>
+		<td><input type=password name=newpwd size=30 maxlength=16 value=''>&nbsp;<font class=red>*</font></td>
+		</tr>
+        <tr>
+		<td>确认密码：</td>
+		<td><input type=password name=toldpwd size=30 maxlength=16 value=''>&nbsp;<font class=red>*</font></td>
+		</tr>
+		<tr>
+		<td></td>
+		<td height=30><input type='submit' value='提交修改'>　　<input type='reset' value='重新填写'></td>
+		</tr>
+		</form>
+	</table>
+<script language=javascript>
+function checkfrm(frm){
+ if(frm.oldpwd.value==""){
+	alert("请输入旧密码");
+	frm.oldpwd.focus();
+	return false;
+ }else if(frm.newpwd.value==""){
+	alert("请输入新密码");
+	frm.newpwd.focus();
+	return false;
+ }else if(frm.newpwd.value!=frm.toldpwd.value){
+	alert("两次输入的密码不一致，请重新输入");
+	frm.toldpwd.focus();
+	return false;
+ }else{
+	return true;
+ }
+}
+</script>
+<{include file="./templates/admin_tpl_foot.html"}>

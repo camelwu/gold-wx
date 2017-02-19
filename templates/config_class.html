@@ -1,0 +1,187 @@
+<{include file="admin_tpl_log.html"}>
+		<table cellspacing="1" cellpadding="4" class="table">
+	<tbody><tr><th colspan="2"><{$tit}>管理</th></tr>
+	<tr><td align="center" colspan="2" height="30">
+	<table border="0">
+	<tbody><tr>
+	<td><a href="?classtype=<{$classtype}>&pid=<{$pid}>"><{$tit}>列表</a></td>
+	<td width="10"></td>
+	<td><a href="?action=add&amp;classtype=<{$classtype}>&amp;pid=<{$pid}>">添加<{$tit}></a></td>
+	</tr>
+	</tbody></table>
+	</td></tr>
+	<tr><td align="center">
+	<table border="0" cellspacing="0" cellpadding="2">
+	<form action="?action=list" method="get"></form>
+	<input type="hidden" name="classtype" value="<{$classtype}>">
+	<input type="hidden" name="pid" value="<{$pid}>">
+	<tbody><tr>
+	<td>搜索（<{$tit}>） 关键字：</td>
+	<td><input type="text" name="keyword" value="" size="15" maxlength="20"></td>
+	<td><input type="submit" value="搜索"></td>
+	</tr>
+	
+	</tbody></table>
+	</td></tr>
+</tbody></table>
+        <{if $action eq 'list'}>
+		<table cellspacing=1 cellpadding=4 class=table>
+			<tr>
+				<th colspan="2">分类管理</th>
+			</tr>
+			<tr valign="top">
+				<td width="20%">
+					<table class="table2" align="center">
+						<{foreach name=outer item=contact from=$data}>
+						<tr>
+							<td colspan=2><img border=0 src='css/images/s_nsort.gif' align=absmiddle>&nbsp;<a href='?classtype=<{$contact.id}>&nsort=<{$nsort}>'<{if
+									$classtype eq
+									$contact.id}>class='red2'<{/if}>><{$contact.name}></a></td>
+						</tr>
+						<tr>
+							<td width=15></td>
+							<td><{foreach key=key item=item from=$contact.p}> <img
+								border=0 src='css/images/s_left_sort.gif' align=absmiddle>&nbsp;<a
+								href='?classtype=<{$contact.id}>&pid=<{$key}>&nsort=<{$nsort}>'<{if $pid eq
+									$key}>class='red2'<{/if}>><{$item}></a><br> <{/foreach}>
+							</td>
+						</tr>
+						<{/foreach}>
+
+					</table>
+				</td>
+				<td>
+					<table cellspacing=1 cellpadding=3 class=table0>
+						<tr align=center>
+							<td class=td>排序</td>
+							<td class=td width='70%'><{$tit}>名称</td>
+							<td class=td>相关操作</td>
+						</tr>
+						<{foreach item=web from=$resu}>
+						<tr>
+						<td align=center><{$web.hots}></td>
+							<td>&nbsp;<img border=0 src='css/images/s_left.gif'
+								align=absmiddle>&nbsp;<font class=red2><b><{$web.title}></b></font></td>
+							<td>&nbsp;<a href='?classtype=<{$web.classtype}>&pid=<{$web.pid}>&id=<{$web.id}>&action=editc&nsort=<{$nsort}>'>编辑</a> &nbsp;
+							<a href='?classtype=<{$web.classtype}>&pid=<{$web.pid}>&id=<{$web.id}>&action=del&nsort=<{$nsort}>' onclick="javascript:return del_nsort('<{$web.title}>','<{$web.pid}>');">删除</a>
+								&nbsp;<a href='?classtype=<{$web.classtype}>&pid=<{$web.pid}>&id=<{$web.id}>&action=up&nsort=<{$nsort}>'><img border=0
+									src='css/images/up_1.gif' alt='向上移动此主分类' align=absmiddle></a>
+								&nbsp;<a href='?classtype=<{$web.classtype}>&pid=<{$web.pid}>&id=<{$web.id}>&action=down&nsort=<{$nsort}>'><img border=0
+									src='css/images/down_1.gif' alt='向下移动此主分类' align=absmiddle></a>
+							</td>
+						</tr>
+						<{/foreach}>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<{else if $action eq 'editc' }>
+		<table cellspacing=1 cellpadding=3 class=table>
+			<tr>
+				<td class=td width='20%'></td>
+				<td class=td width='80%'><{$tit}>分类</td>
+			</tr>
+			<form name=add_frm action='?action=addc' method=post>
+				<input type=hidden name='id' value='<{$info.id}>'>
+				<input type=hidden name='pid' value='<{$pid}>'>
+				<tr>
+					<td><{$tit}>名称：</td>
+					<td><input type=text name=title size=30
+						value='<{$info.title}>'>&nbsp;<font class=red>*</font>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>上级分类：</td>
+					<td><select name=classtype> <{html_options
+							options=$Config.web selected=$info.classtype}>
+					</select>&nbsp;&nbsp;&nbsp;<{if $pid ne '0'}><select name=pid>
+					</select><{/if}></td>
+				</tr>
+				<tr>
+					<td>排序：</td>
+					<td><input type=text name=hots size=12 value='<{$info.hots}>'></td>
+				</tr>
+				<tr>
+					<td>静态化页面前缀：</td>
+					<td><input type=text name=html size=30 value='<{$info.html}>'>&nbsp;<font
+						class=red>*</font>(前缀重复系统自动赋值)</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td height=30><input type=submit value='提交添加'> <input
+						type=reset value='重新填写'> <input type=button name=go_back
+						value='返回上一页' onclick=javascript:history.back(1);></td>
+				</tr>
+			</form>
+		</table>
+		</table>
+		<{/if}>
+	<script language=javascript>
+	var classtype=$("select[name='classtype']");
+	var pid=$("select[name='pid']");
+	var id=$("input[name='id']");
+	var hots=$("input[name='hots']");
+	var html=$("input[name='html']");
+	function classtype_init(){
+		pid.empty();
+		$.ajax({
+		    type: "GET",
+		    dataType: "json",
+		    url: "getajax.php?q=getclasstype",
+		    data: "classtype=" + classtype.val(),
+		    complete: function(){},
+		    success: function(data,textStatus){
+				var pid_select="<{$pid}>";
+					$.each(data,function(index,item){
+						if (pid_select==index){
+							pid.append("<option value='"+index+"'  selected=\"selected\">"+item+"</option>");
+						}else{
+							pid.append("<option value='"+index+"'>"+item+"</option>");
+						}
+					});
+					hots_init();
+		        }
+			});
+	}
+	classtype_init();
+	classtype.change(function(){
+		classtype_init();
+	});
+	pid.change(function(){
+		hots_init();
+	});
+	
+	function hots_init(){
+		$.getJSON("getajax.php?q=gethot&classtype="+classtype.val()+"&pid="+pid.val()+"&hots="+hots.val()+"&id="+id.val(), function(data){
+			hots.attr('value',data.hots);	
+		});
+	}
+	
+	html_init();
+	html.blur(html_init);
+	function html_init(){
+		$.getJSON("getajax.php?q=gethtml&id="+id.val()+"&html="+html.val(), function(data){
+			html.attr('value',data.html);
+		});
+	}
+function del_nsort(t2,t3){
+ if (t3=="0")
+ {
+   var cf=window.confirm("您确定要删除主分类（"+t2+"）吗？\n其下的二级分类也将一并删除！\n\n删除后将不可恢复！是否确定该操作？");
+   if (cf)
+   { return true; }
+   else
+   { return false; }
+ }
+ else
+ {
+   var cf1=window.confirm("您确定要删除二级分类（"+t2+"）吗？\n\n删除后将不可恢复！是否确定该操作？");
+   if (cf1)
+   { return true; }
+   else
+   { return false; }
+ }
+ return false;
+}
+-->
+</script>
+<{include file="admin_tpl_foot.html"}>

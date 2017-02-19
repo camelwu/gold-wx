@@ -1,0 +1,104 @@
+<{include file="./templates/admin_tpl_log.html"}>
+<table cellspacing=1 cellpadding=4 class=table>
+	<tr><th colspan=2><{$tit}>管理</th></tr>
+	<tr><td align=center colspan=2 height=30>
+	<table border=0>
+	<tr>
+	<td><a href='?types=0'>线路列表</a></td>
+	<td width=10></td>
+	<td><a href='?types=1'>产品列表</a></td>
+	</tr>
+	</table>
+	</td></tr>
+	<tr><td align=center>
+	<table border=0 cellspacing=0 cellpadding=2>
+	<form action='?action=list' method=get>
+	<input type=hidden name=types value='<{$types}>'>
+	<tr>
+	<td>搜索（<{$tit}>列表） 关键字：</td>
+	<td><input type=text name=keyword value='<{$keyword}>' size=15 maxlength=20></td>
+	<td><input type=submit value='搜索'></td>
+	</tr>
+	</form>
+	</table>
+	</td></tr>
+</table>
+		<{if $action eq ''}>
+		<table cellspacing=1 cellpadding=4 class=table>
+			<form name="sel_form" action="?action=handle" method="post">
+            <input type="hidden" name="types" value="<{$types}>">
+            <input type="hidden" name="page" value="<{$page}>">
+				<tr>
+					<th><input type="checkbox" id="chkall" onclick="select_all(this,'id[]');" style="border:0"></th>
+					<th>图片</th>
+                    <th>产品名称</th>
+					<th>价格</th>
+					<th>发布人</th>
+					<th>状态</th>
+				</tr>
+				<{foreach from=$comments item=web}>
+				<tr align=center>
+					<td><input type="checkbox" name="id[]" value="<{$web.id}>" style="border:0"></td>
+					<td width="200"><img src="<{$web.url}>" width="180" height="100" /></td>
+                    <td align="left"><{$web.title}>  [当前<{if $web.urls neq ''}><font color="#FF0000">已传</font><{else}>未传<{/if}>]</td>
+					<td><{$web.price2}></td>
+					<td><{$web.op_user}></td>
+					<td><{if $web.status eq 0}><a href='?action=handle&types=<{$types}>&page=<{$page}>&id=<{$web.id}>&status=1' title='点击通过，可在weixin.cgbt.net上浏览'>通过</a><{else}><a href='?action=handle&types=<{$types}>&page=<{$page}>&id=<{$web.id}>&status=0' title='点击下线，从weixin.cgbt.net上将不再能访问'>下线</a><{/if}></td>
+				</tr>
+				<{/foreach}>
+				<tr>
+					<td colspan=8><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="18%">&nbsp;操作：<select name="op_type" id="op_type"><option value="pass">通过</option><option value="up">上传</option></select> <input type="submit" value="提交"></td>
+    <td><{$multipage}></td>
+  </tr>
+</table></td>
+				</tr>
+			</form>
+		</table>
+		<table width='90%' height=2>
+			<tr class=bg>
+				<td></td>
+			</tr>
+		</table>
+		<{else}>
+		<table cellspacing=1 cellpadding=4 class=table>
+			<tr>
+				<td class=td colspan=2>添加信息</td>
+			</tr>
+			<form name=add_frm action='?action=handle' method=post
+				enctype="multipart/form-data">
+				<input type=hidden name=id value='<{$info.id}>'>
+				<tr>
+					<td><{$tit}>：</td>
+					<td><input type=text name=title size=60
+						value='<{$info.title}>'>&nbsp;<font class=red>*</font></td>
+				</tr>
+				<tr>
+					<td>英文名称：</td>
+					<td><input type=text name=names size=60
+						value='<{$info.names}>'>&nbsp;<font class=red>*</font></td>
+				</tr>
+				<tr>
+					<td>三位码：</td>
+					<td><input type=text name=code size=60
+						value='<{$info.code}>'>&nbsp;<font class=red>*</font></td>
+				</tr>
+			<tr>
+				<td></td>
+				<td height=30><input type=submit value='提交添加'> <input
+					type=reset value='重新填写'> <input type=button name=go_back
+					value='返回列表' onClick="javascript:location.href='?types=<{$types}>';"></td>
+			</tr>
+			</form>
+		</table>
+
+		<{/if}>
+
+		<script language=javascript>
+			function del_nsort() {
+				var cf = window.confirm("是否确定该操作？");
+				return cf;
+			}
+		</script>
+<{include file="./templates/admin_tpl_foot.html"}>

@@ -1,0 +1,16 @@
+select * from cn
+
+select * from cn order by FullSpellingName
+
+select * from en order by FullSpellingName
+
+select CountryName,CountryEN,CountryCode from en order by CountryEN
+
+select distinct CountryName,CountryEN,CountryCode from en order by CountryEN
+
+select distinct CountryName,CountryEN,CountryCode from en order by CountryName
+
+select distinct CountryName,CountryEN,CountryCode from en order by CountryEN
+
+select distinct CountryName,CountryEN,CountryCode from en order by CountryCode
+

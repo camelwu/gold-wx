@@ -1,0 +1,154 @@
+<{include file="./templates/admin_tpl_head.html"}>
+		<table cellspacing=1 cellpadding=4 class=table>
+			<tr>
+				<th colspan=2>分类管理</th>
+			</tr>
+			<tr>
+				<td align=center colspan=2 height=30>
+					<table border=0>
+						<tr>
+							<td><a href='?classtype=<{$classtype}>&pid=<{$pid}>&nsort=<{$nsort}>'><{$tit}>列表</a></td>
+							<td width=10></td>
+							<td><a
+								href='?action=editc&classtype=<{$classtype}>&pid=<{$pid}>&nsort=<{$nsort}>'>添加<{$tit}></a></td>
+							<td width=10></td>
+							<td></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		
+		<table cellspacing=1 cellpadding=4 class=table>
+			<tr>
+				<th colspan="2">群发消息</th>
+			</tr>
+			<tr valign="top">
+				<td width="20%">
+					<table class="table2" align="center">
+                        <{foreach name=outer item=contact from=$groups}>
+						<tr>
+							<td colspan=2><img border=0 src='css/images/s_left_sort.gif' align=absmiddle>&nbsp;<a href='javascript:void(0);' class="group " datafid="<{$contact.id}>" dataval="<{$contact.name}>"><{$contact.name}></a></td>
+						</tr>
+						<{/foreach}>
+					</table>
+				</td>
+				<td>
+					<table cellspacing=1 cellpadding=3 class=table>
+                    <tr>
+                        <td class=td width='20%'></td>
+                        <td class=td width='80%'>图文消息</td>
+                    </tr>
+                    <form name=add_frm action='?action=addc' method=post>
+                        <input type="hidden" name="is_to_all" value='false'>
+                        <input type="hidden" name='group_id' id="group_id" value="">
+                        <tr>
+                            <td>分组：</td>
+                            <td><input type="text" id="title" value='<{$info.title}>' readonly></td>
+                        </tr>
+                        <tr>
+                            <td>图文内容：</td>
+                            <td><a href='javascript:void(0);' id="show">图文素材</a> | <a href='javascript:void(0);' id="new">新建消息</a></td>
+                        </tr>
+                        <tr>
+                            <td>页面内容：</td>
+                            <td><textarea name="html" style="width:500px;height:200px;">&nbsp;</textarea><font class="red">*</font></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td height=30><input type="submit" value='提交添加'> <input type="reset" value='重新填写'></td>
+                        </tr>
+                    </form>
+                	</table>
+                    <table cellspacing="1" cellpadding="4" class="table">
+<form action="?action=handle" method="post" name="add_frm" id="add_frm" onsubmit="return sub_frm(this);">
+<input type="hidden" name="id" value="<{$info.id}>" />
+  <tr>
+    <th colspan="2">图文消息</th>
+  </tr>
+  <tr valign="top">
+    <td width="380">
+    <div id="news">
+    <div class="add_item" id="add_item">
+        <a data-id="0" class="appmsg_add" onclick="_sel_msg();return false;" href="javascript:void(0);">添加</a>
+    </div>
+    </div></td>
+    <td>
+    <table cellspacing="1" cellpadding="3" class="table" id="tab01">
+      <tr>
+        <td class="td" width='20%'></td>
+        <td class="td" width='80%' id="tab_td">编辑框</td>
+      </tr>
+        <tr id="tr_ctype">
+          <td>内容筛选：</td>
+          <td><select id="ctype">
+            <{html_options options=$ctype selected=$info.ctype}>
+          </select>
+            <input type="text" id="keyword" size="12" value="" />
+            <input type="button" value="search" onclick="search_req();" />
+            （如回复内容是文字请在下面的内容框直接输入）</td>
+        </tr>
+        <tr>
+          <td>标题：</td>
+          <td><input type="text" id="title" style="width:300px;" value='' maxlength="64" />
+            &nbsp;<span class="red">*</span><span id="mid"></span></td>
+        </tr>
+        <tr>
+          <td>价格：</td>
+          <td id="price">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>摘要：（单图文信息有效，多图文可不加）</td>
+          <td><textarea id="note" style="width:300px;height:80px;" max-length="120"></textarea></td>
+        </tr>
+        <tr>
+          <td>回复页面内容：</td>
+          <td><textarea id="content" style="width:300px;height:500px;"></textarea>&nbsp;<span class="red">*</span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;<input type="button" value='确认保存' onclick="_sel_save();" /></td>
+        </tr>
+        <!--<tr><td>回复页面预览</td><td><div id="html" style="width:670px;height:200px;scroll:auto;"></div></td></tr>-->
+    </table>
+</td>
+  </tr>
+  <tr>
+  	<td colspan="2"><input type="submit" value='提交添加' />
+            <input type="reset" value='重新填写' /></td>
+  </tr>
+</form>
+</table> 
+<script type="text/javascript" src="kindeditor/kindeditor.js"></script>
+<script type="text/javascript" src="js/msg.js"></script>
+				</td>
+			</tr>
+		</table>
+<script type="text/javascript" src="js/func.js"></script>
+<script type="text/javascript">
+<!--
+$('.group').click(function(){
+	$("#group_id").val($(this).attr("datafid"));
+	$("#title").val($(this).attr("dataval"));
+});
+$('#show').click(function(){
+	openhtml(cstr,'sel_cid();');
+});
+$('#new').click(function(){
+	console.log("新建");
+	openhtml(cstr,'sel_cid();');
+});
+//
+
+//checksel
+function sel_cid(){
+	var str="";
+	$('input[name="cid[]"]').each(function(){
+		str+=$(this).val()+",";
+	})
+	if(str.substr(-1)==',') str = str.substring(0,str.length-1);
+	$("#content").val(str);
+}
+-->
+</script>
+<{include file="./templates/admin_tpl_foot.html"}>

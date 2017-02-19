@@ -1,0 +1,315 @@
+<{include file="admin_tpl_log.html"}>
+		<table cellspacing="1" cellpadding="4" class="table">
+	<tbody><tr><th colspan="2">线路<{$tit}>管理</th></tr>
+	<tr><td align="center" colspan="2" height="30">
+	<table border="0">
+	<tbody><tr>
+	<td><a href="?types=0&ctype=0"<{if $types eq '0' and $ctype eq '0'}>class="red"<{/if}>>我的<{$tit}>列表</a></td>
+    <td width="10"></td>
+	<td><a href="?types=1&ctype=0"<{if $types eq '1' and $ctype eq '0'}>class="red"<{/if}>>他人<{$tit}>列表</a></td>
+	<td width="10"></td>
+	<td><a href="?types=0&ctype=1"<{if $types eq '0' and $ctype eq '1'}>class="red"<{/if}>>我的转销列表</a></td>
+	</tr>
+	</tbody></table>
+	</td></tr>
+	<tr><td align="center">
+	<table border="0" cellspacing="0" cellpadding="2">
+	<form action="?action=list" method="get">
+	<input type="hidden" name="types" value="<{$types}>"><input type="hidden" name="ctype" value="<{$ctype}>">
+	<tr>
+	<td>搜索（<{$tit}>） 关键字：</td>
+	<td><input type="text" name="keyword" value="" size="15" maxlength="20"></td>
+	<td><input type="submit" value="搜索"></td>
+	</tr>
+	</form>
+	</table>
+	</td></tr>
+</tbody></table>
+        <{if $action eq 'list'}>
+			<table cellspacing=1 cellpadding=4 class=table>
+			<form name=sel_form action='?action=delete' method=post>
+				<tr>
+					<th>ID</th>
+					<{if $types eq '0' and $ctype eq '1'}><th>线路销售名称</th><{else}><th><{$tit}>图片</th><{/if}>
+					<th>线路计划名称</th>
+					<th>销售价格</th>
+					<th>价格浮动</th>
+					<th>团期</th>
+                    <th>离抵城市</th>
+                    <th>发布人</th>
+					<th>操作</th>
+				</tr>
+				<{foreach from=$comments item=web}>
+				<tr align=center>
+					<td><{$web.id}></td>
+					<td><{if $types eq '0' and $ctype eq '1'}><{$web.name}><{else}><img src="<{$picserver}><{$web.url}>" width="210" height="120" border="0"><{/if}></td>
+					<td><{$web.title}></td>
+					<td>计划底价：<{$web.price1}><br>计划售价：<{$web.price2}><{if $types eq '0' and $ctype eq '1'}><br>销售利润：<{$web.price_1}><br>转销价格：<{$web.price_2}><{/if}></td>
+					<td><a href="?action=price&types=<{$types}>&ctype=<{$ctype}>&id=<{$web.id}>">浮动</a><{$web.num}></td>
+					<td><{$web.go_time}></td>
+					<td><{if $types eq '0' and $ctype eq '1'}><{$web.departure}>-><{/if}><{$web.city1}>-<{$web.city2}></td><td><{$web.op_user}></td>
+					<td><a href='?action=view&id=<{$web.id}>&types=<{$types}>&ctype=<{$ctype}>'>浏览</a><{if $types eq '1'}> <a href='?action=add&id=<{$web.id}>&types=<{$types}>&ctype=<{$ctype}>'>转销</a><{else}> <a href='?action=edit&id=<{$web.id}>&hid=<{$web.hid}>&types=<{$types}>&ctype=<{$ctype}>'>编辑</a><{/if}></td>
+				</tr>
+				<{/foreach}>
+				<tr>
+					<td colspan=9><{$multipage}></td>
+				</tr>
+			</form>
+		</table>
+		<{elseif $action eq 'view'}>
+<table width="100%" border="0" cellpadding="2" cellspacing="1" class="table">
+  <tbody><tr>
+    <th colspan="2">信息浏览</th>
+  </tr>
+  <tr>
+    <td align="right">线路类型：</td>
+    <td><{$info.ro_type}></td>
+  </tr>
+  <tr>
+    <td align="right">线路类别：</td>
+    <td><{$class1}>-<{$class2}></td>
+  </tr>
+  <tr>
+    <td align="right">标识字段：</td>
+    <td><{$info.keywords}></td>
+  </tr>
+  <tr>
+    <td width="14%" align="right">线路名称：</td>
+    <td width="86%"><{$info.title}></td>
+  </tr>
+  <tr>
+    <td align="right">旅游天数：</td>
+    <td><{$info.go_day}><span class="title3">天</span>&nbsp;成团人数<{$info.go_num}> <span class="title3">人</span>，儿童占座：<{if $info.kid eq "1"}>是<{else}>否<{/if}>
+      </td>
+  </tr>
+  <tr>
+    <td align="right">出发城市：</td>
+    <td><{$info.city1}></td>
+  </tr>
+  <tr>
+    <td align="right">目的城市：</td>
+    <td><{$info.city2}></td>
+  </tr>
+  <tr>
+    <td align="right">所需签证：</td>
+    <td><{$info.visa}></td>
+  </tr>
+  <tr>
+    <td align="right">出团日期：</td>
+    <td><{$info.go_time}></td>
+  </tr>
+  <tr>
+    <td align="right">报名截止：</td>
+    <td>团期前<{$info.go_reg}>天</td>
+  </tr>
+  <tr>
+    <td align="right">集合地点：</td>
+    <td><ul id="location"></ul></td>
+  </tr>
+  <tr>
+    <td align="right">主图上传：</td>
+    <td><img src="<{$picserver}><{$info.url}>"></td>
+  </tr>
+  <tr valign="top">
+    <td align="right">行程内容：</td>
+    <td><{if $info.d_type eq '1'}><{$info.file}><{else}><fieldset name="stroke_chk">
+<legend> 行程明细</legend>
+	<{foreach from=$stroke item=web name=stroke}>
+    第 <{$web.num}> 天<br>
+	<strong>行</strong>：<{$web.timd}>离<{$web.departure}> -<{$web.traffic}>- <{$web.tima}>抵<{$web.arrived}><br>
+      <strong>食</strong>：
+      <{$web.eats}><br>
+	  <strong>住</strong>：<{$web.hotel}><br>
+      <strong>娱：</strong><{$web.scenic}><br>
+    <strong>行程：</strong><{$web.content|nl2br}><hr>
+	<{/foreach}>
+    </fieldset><{/if}></td>
+  </tr>
+  <tr>
+    <td align="right">是否地接：</td>
+    <td><{$info.dj}></td>
+  </tr>
+  <tr>
+    <td align="right">线路说明：</td>
+    <td><{$info.remark|nl2br}></td>
+  </tr>
+  <tr>
+    <td align="right">行程特色：</td>
+    <td><{$info.feature|nl2br}></td>
+  </tr>
+  <tr>
+    <td align="right">团体包价：</td>
+    <td><{$info.info|nl2br}></td>
+  </tr>
+  <tr>
+    <td align="right">信息控制：</td>
+    <td><{$info.op_type}></td>
+  </tr>
+  <tr>
+    <td align="right">销售价格：</td>
+    <td>本网：<{$info.price2}><br>门市：<{$info.price3}><br>分销：<{$info.price4}><br></td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</tbody>
+</table>
+<script type="text/javascript">
+//集合地点
+var snum = 0;
+var sadd = '<{$info.addr}>';var stim = '<{$info.tim}>';
+var cadd = sadd.split(',');var catt = stim.split(',');
+if(cadd.length>0){
+	snum = cadd.length;
+	for(var i=0;i<snum;i++){
+		$("#location").append('<li>第'+(i+1)+' 地点：'+cadd[i]+'， 时间：'+catt[i]+'</li>');
+	}
+}
+</script>
+<{elseif $action eq 'price'}>
+<table width="100%" border="0" cellpadding="2" cellspacing="1" class="table">
+<tr>
+<th colspan="2"><{$route.title}>-价格浮动表</th>
+</tr>
+<tr>
+    <td width="13%" align="right">出团信息：</td>
+    <td width="87%"><font color="red"><{$route.go_num}></font>人成团， <{$route.go_time}>发团， 出团前 <font color="red"><{$route.go_reg}></font> 天截止报名</td>
+  </tr>
+			<{foreach item=web name=hotel from=$comments}>
+				<tr>
+					<td align="right" class="style101">(<{$smarty.foreach.hotel.index+1}>)原因说明：</td>
+					<td><{$web.title}></td>
+                </tr>
+				<tr>
+					<td align="right" class="style100">报价变动：</td>
+					<td><{$Config.float[$web.pass]}>￥<{$web.price}></td>
+				</tr>
+				<tr>
+					<td align="right" class="style100">变动时间：</td>
+					<td><{$web.time}></td>
+				</tr>			
+		<{/foreach}>
+		</table>
+<{else}>
+<form name="myform_1" method="post" action="?action=handle" onsubmit="return checkfrm(this);">
+<input type=hidden name="id" value="<{$route.id}>"><input type=hidden name="hid" value="<{$info.hid}>"><input name="ctype" type=hidden id="ctype" value="1">
+<table width="100%" border="0" cellpadding="2" cellspacing="1" class="table">
+  <tbody><tr>
+    <th colspan="2"><{$route.title}>-分销操作</th>
+  </tr>
+  <tr>
+    <td align="right">出团信息：</td>
+    <td><font color="red"><{$route.go_num}></font>人成团， <{$route.go_time}>发团， 出团前 <font color="red"><{$route.go_reg}></font> 天截止报名</td>
+  </tr>
+  <tr>
+    <td align="right">出发城市：</td>
+    <td><input name="departure" type="text" class="INPUT" id="departure" value="<{$info.departure}>" size="30" maxlength="8" onkeyup="set_title(this);"> </td>
+  </tr>
+  <tr>
+    <td align="right">出发时间：</td>
+    <td><input name="time" type="text" class="INPUT" id="time" value="<{$info.time}>" size="5" maxlength="5"></td>
+  </tr>
+  <tr>
+    <td align="right">交通工具：</td>
+    <td><select name="traffic" id="traffic"><{html_options options=$traffic selected=$info.traffic}></select>
+      参考航班或车次：<input name="tname" type="text" id="tname" value="<{$info.tname}>"> </td>
+  </tr>
+  <tr>
+    <td width="14%" align="right">线路名称：</td>
+    <td width="86%"><input name="title" type="text" class="INPUT" id="title" value="<{$info.title}>" size="80" maxlength="60"></td>
+  </tr>
+  <tr>
+    <td align="right">集合地点：</td>
+    <td><input name="add" type="button" value="增加" id="add"><input name="del" type="button" value="减少" id="del"><ul id="location"></ul></td>
+  </tr>
+  <tr>
+    <td align="right">信息控制：</td>
+    <td><{html_checkboxes name='op_type' options=$op_type checked=$info.op_type separator=""}></td>
+  </tr>
+  <tr>
+    <td align="right">销售价格：</td>
+    <td>成本：<{$route.price2}>元 &nbsp;+ &nbsp; 利润：<input name="price1" type="text" class="INPUT" id="price1" value="<{$info.price1}>" size="10" maxlength="8" onKeyUp="this.value=this.value.replace(/\D/gi,'');set_price(this);"> = <input name="price2" type="text" class="input" id="price2" onKeyUp="this.value=this.value.replace(/\D/gi,'')" size="8" maxlength="8" value="<{$info.price2}>">
+       <span class="title3">元 （网站售价）</span></td>
+  </tr>
+  <tr>
+    <td align="right"></td>
+    <td><input type="submit" class="bt" value="提交信息" />      &nbsp;&nbsp;
+      <input type="reset" class="bt" value="重新填写">
+      &nbsp;&nbsp;
+      <input type="button" class="bt" onClick="window.location='?action=list';" value="返回操作"></td>
+  </tr>
+</tbody>
+</table>
+</form>
+<script language=javascript>
+
+function checkfrm(frm){
+	if(frm.departure.value==''){
+		alert("请输入出发城市");
+		frm.departure.focus();
+		return false;
+	}else if(frm.time.value==''||!isTime(frm.time.value)){
+		alert("请输入“00:00”格式的出发时间");
+		frm.time.focus();
+		return false;
+	}else if(frm.title.value==''){
+		alert("请输入线路名称");
+		frm.title.focus();
+		return false;
+	}else if(frm.price1.value==''){
+		alert("请输入利润，可为0");
+		frm.price1.focus();
+		return false;
+	}else if(frm.price2.value==''){
+		alert("请输入售价");
+		frm.price2.focus();
+		return false;
+	}else{
+		return true;
+	}
+}
+//
+var t0 = '<{$route.title}>';var p0 = <{$route.price2}>;
+function set_title(id){
+	var v = id.value+'-'+t0;
+	$("#title").val(v);
+}
+function set_price(id){
+	var p1 = p0+parseInt(id.value);
+	$("#price2").val(p1);
+}
+//集合地点
+var snum = 0;
+var sadd = '<{$info.addr}>';var stim = '<{$info.tim}>';
+var cadd = sadd.split(',');var catt = stim.split(',');
+if(cadd.length>0){
+	snum = cadd.length;
+	for(var i=0;i<snum;i++){
+		$("#location").append('<li id="location_0'+(i+1)+'">第'+(i+1)+' 地点：<input name="addr[]" type="text" value="'+cadd[i]+'" size="10" maxlength="30"> 时间：<input name="tim[]" type="text" value="'+catt[i]+'" size="3" maxlength="5"></li>');
+	}
+}else{
+	
+}
+$("#add").click(
+	function(){
+		++snum;
+		$("#location").append('<li id="location_0'+snum+'">第'+snum+' 地点：<input name="addr[]" type="text" class="INPUT" id="addr0'+snum+'" value="" size="30" maxlength="60"> 时间：<input name="tim[]" type="text" class="INPUT" id="tim0'+snum+'" value=""></li>');
+	}
+);
+$("#del").click(function(){$("li").remove("#location_0"+snum);snum>=1?--snum:null;});
+/////////////////////////////////////////
+function _(id){
+	return document.getElementById(id);
+}
+function isNum(str){
+	var re = /^-{0,1}\d*\.{0,1}\d+$/;
+    return (re.test(str));
+}
+function isTime(str){
+	var re=/[0-2][0-9](:|：)[0-5][0-9]$/;
+	return (re.test(str));
+}
+</script>
+<{/if}>
+<{include file="admin_tpl_foot.html"}>

@@ -1,0 +1,98 @@
+<{include file="admin_tpl_head.html"}>
+		<table width="100%" border="0" cellpadding="2" cellspacing="1"
+			class="table">
+			<tr>
+				<th colspan="2"><{$tit1}>管理</th>
+			</tr>
+			<tr>
+				<td width="13%" align="right"><{$tit}>名称：</td>
+				<td width="87%"><{$scenicinfo.title}>&nbsp;|&nbsp;<a
+					href="admin_plan.php?types=<{$types}>&ctype=<{$ctype}>">返回列表</a></td>
+			</tr>
+			<tr>
+				<td align="right">管理操作：</td>
+				<td>&nbsp;<a href="?id=<{$id}>&types=<{$types}>&ctype=<{$ctype}>&action=add">添加<{$tit1}></a>&nbsp;|&nbsp;<a
+					href="?id=<{$id}>&types=<{$types}>&ctype=<{$ctype}>"><{$tit1}>管理</a></td>
+			</tr>
+		</table>
+		<{if $action eq 'list'}>
+				<table width="100%" border="0" cellpadding="2" cellspacing="1" class="table">
+			<{foreach item=web name=hotel from=$comments}>
+	
+				<tr>
+					<td width="13%" align="right" class="style101">(<{$smarty.foreach.hotel.index+1}>)<{$tit1}><{if $types eq '4' && $ctype eq '0'}>人等<{else}>名称<{/if}>：</td>
+					<td ><{$web.title}></td>
+                </tr>
+				<{if $ctype eq '1'}>
+                <tr>
+					<td align="right" class="style100">显示图片:</td>
+					<td><img src="<{$picserver}><{$web.url}>"></td>
+				</tr>
+				<{elseif $ctype eq '0'}>
+				<tr>
+					<td align="right" class="style100">报价变动：</td>
+					<td><{$Config.float[$web.pass]}>￥<{$web.price}></td>
+				</tr>
+				<tr>
+					<td align="right" class="style100">变动时间：</td>
+					<td height="25"><{$web.time}></td>
+				</tr>
+				<{/if}>
+				<tr>
+					<td></td>
+					<td><input type="button" name="button" onClick="javascript:window.location='?hid=<{$web.hid}>&id=<{$id}>&types=<{$types}>&ctype=<{$ctype}>&action=add'" value="修 改"> <input
+						name="delete" type="button" id="delete2" value="删 除"
+						onClick="window.location='?hid=<{$web.hid}>&id=<{$id}>&types=<{$types}>&ctype=<{$ctype}>&action=delete';"></td>
+					
+				</tr>
+			
+		<{/foreach}>
+		</table>
+		<{else}>
+		<form name="myform_1" method="post"
+			action="?action=handle" enctype="multipart/form-data">
+			<input type=hidden name="types" value="<{$types}>"> 
+			<input type=hidden name="ctype" value="<{$ctype}>"> 
+			<input type=hidden name="id" value="<{$id}>">
+			<input type=hidden name="hid" value="<{$info.hid}>">
+
+			<table width="100%" border="0" cellpadding="2" cellspacing="1" class="table">
+                <tr>
+					<td width="13%" align="right" class="style101"><{$tit1}><{if $types eq '0' && $ctype eq '0'}>原因<{else}>名称<{/if}>：</td>
+					<td ><input name="title" type="text" class="INPUT"
+						 value="<{$info.title}>" size="20"><{if $types eq '4'}>例如：1或者2~5<{/if}></td>
+				</tr><{if $ctype eq '1'}>
+				<tr>
+					<td align="right">图片上传：</td>
+					<td><input type=file name=pic size=40><input
+						type=hidden name=url value="<{$info.url}>"></td>
+				</tr>
+				<{/if}>
+				<{if $ctype eq '0'}>
+				<tr>
+					<td align="right">发团时间：</td>
+					<td><{if $scenicinfo.go_type eq '0'}>每天<{elseif $scenicinfo.go_type eq '1'}>每周<{$scenicinfo.go_time}><{elseif $scenicinfo.go_type eq '1'}>每月<{$scenicinfo.go_time}><{else}><{$scenicinfo.go_time}><{/if}></td>
+				</tr>
+                <tr>
+					<td width="13%" align="right" class="style100">浮动差价：</td>
+					<td height="25"><script type="text/javascript" src="js/DatePicker.js"></script><{html_radios name="pass" options=$r_2 checked=$info.pass separator=""}> <input name="price" type="text" class="INPUT" id="price" onKeyUp='this.value=this.value.replace(/\D/gi,"")' value="<{$info.price}>" size="15"> 元&nbsp;&nbsp;浮动时间： <input name="time" type="text" class="INPUT" value="<{$info.time}>" onFocus="setday(this)" readonly="readonly" size="10"></td>
+				</tr>
+				<{/if}>
+				<tr>
+					<td></td>
+					<td><input type="submit"  value="提  交"> </td>
+				</tr>
+			</table>
+		</form>
+
+		
+
+		<{/if}>
+
+		<script language=javascript>
+			function del_nsort() {
+				var cf = window.confirm("是否确定该操作？");
+				return cf;
+			}
+		</script>
+<{include file="admin_tpl_foot.html"}>

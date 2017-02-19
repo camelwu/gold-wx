@@ -1,0 +1,218 @@
+<{include file="./templates/admin_tpl_log.html"}>
+<script type="text/javascript">
+//对话框闭包
+function dialog(){
+	var theY = 0;
+	(document.documentElement.clientHeight>=document.body.clientHeight&&document.documentElement.clientHeight)?theY = document.documentElement.clientHeight:theY = document.body.clientHeight;
+	var src = './images/smile.jpg';
+	var sFunc = '<dt><a id="dialogOk" class="btn_suca" href="javascript:;" onclick="new dialog().reset();">确  认</a> <a id="dialogCancel" class="btn_suc" href="javascript:;" onclick="new dialog().reset();">取 消</a></dt>';
+	var sBox = '\
+	<div id="dialogBox" style="display:none;">\
+		<div id="dialogBody">\
+			<img id="dialogBoxFace" src="'+src+'" style="width:151px;height:179px;float:left;" />\
+			<div id="dialogMsg" style="position:absolute; left: 284px; top: 81px;"></div>\
+		</div>\
+		<div id="dialogFunc">'+ sFunc+'</div>\
+	</div>\
+	<div id="dialogBoxShadow" style="display:none;z-index:201;"></div>\
+	';
+	function _(_sId){return document.getElementById(_sId);}
+	this.show = function(){
+		_('dialogBody') ? function(){} : this.init();
+		this.middle('dialogBox');
+		//this.shadow();
+	}
+	this.reset = function(){
+		//this.hideModule('select', '');
+		_('dialogBox').style.display = 'none';
+		//_('dialogBoxShadow').style.display = 'none';
+	}
+	this.html = function(_sHtml){_("dialogBody").innerHTML = _sHtml;this.show();}
+	this.init = function(){
+		_('dialogCase') ? _('dialogCase').parentNode.removeChild(_('dialogCase')) : function(){};
+		var oDiv = document.createElement('span');
+		oDiv.id = "dialogCase";
+		oDiv.innerHTML = sBox;
+		document.body.appendChild(oDiv);
+	}
+	this.button = function(_sId, _sFuc){
+		if(_(_sId)){
+			_(_sId).style.display = '';
+			if(_(_sId).addEventListener){
+				if(_(_sId).act){_(_sId).removeEventListener('click', function(){eval(_(_sId).act)}, false);}
+				_(_sId).act = _sFuc;
+				_(_sId).addEventListener('click', function(){eval(_sFuc)}, false);
+			}else{
+				if(_(_sId).act){_(_sId).detachEvent('onclick', function(){eval(_(_sId).act)});}
+				_(_sId).act = _sFuc;
+				_(_sId).attachEvent('onclick', function(){eval(_sFuc)});
+			}
+		}
+	}
+	this.shadow = function(){
+		var oShadow = _('dialogBoxShadow');
+		oShadow['style']['position'] = 'absolute';
+		oShadow['style']['background']	= '#cccccc';
+		oShadow['style']['display']	= '';
+		oShadow['style']['opacity']	= '0.2';
+		oShadow['style']['filter'] = 'alpha(opacity=20)';
+		oShadow['style']['top'] = '0px';
+		oShadow['style']['left'] = '0px';
+		oShadow['style']['width'] = (window.top.document.documentElement.clientWidth)+'px';
+		oShadow['style']['height'] = (theY)+'px';
+	}
+	this.set = function(_oAttr, _sVal){
+		var oDialog = _('dialogBody');
+		if(_sVal != ''){
+			switch(_oAttr){
+				case 'title':
+					oDialog ? oDialog.innerHTML = _sVal : function(){};
+					break;
+				case '_sOk':
+					_('dialogOk').innerHTML = _sVal;
+					break;
+				case 'height':
+					oHeight['style']['height'] = _sVal;
+					height = _sVal;
+					break;
+				case 'src':
+					if(parseInt(_sVal) > 0){
+						_('dialogBoxFace') ? _('dialogBoxFace').src = path + _sVal + '.gif' : function(){};
+					}else{
+						_('dialogBoxFace') ? _('dialogBoxFace').src = _sVal : function(){};
+					}
+					src = _sVal;
+					break;
+			}
+		}
+		
+	}
+	this.middle = function(_sId){//确认位置
+		_(_sId)['style']['display'] = '';
+		_(_sId)['style']['position'] = 'absolute';
+		_(_sId)['style']['left'] = (window.top.document.documentElement.clientWidth/2) - (_(_sId).offsetWidth/2)+'px';
+		_(_sId)['style']['top'] = (window.top.document.documentElement.scrollTop + window.top.document.documentElement.clientHeight/2 - _(_sId).offsetHeight/2)+'px';
+	}
+	this.event = function(_sMsg, _sOk, _sCancel){
+		_('dialogFunc').innerHTML = sFunc;
+		//_('dialogClose').innerHTML = sClose;
+		_('dialogMsg') ? _('dialogMsg').innerHTML = _sMsg : function(){};
+		this.show();
+		_sOk ? this.button('dialogOk', _sOk) | _('dialogOk').focus() : _('dialogOk').style.display = 'none';
+		_sCancel ? this.button('dialogCancel', _sCancel) : _('dialogCancel').style.display = 'none';
+		//manage.setCurrentContainer(window.cahcekeyContainer);
+		//_sOk ? this.button('dialogOk', _sOk) : _sOk == "" ? function(){} : _('dialogOk').style.display = 'none';
+		//_sCancel ? this.button('dialogCancel', _sCancel) : _sCancel == "" ? function(){} : _('dialogCancel').style.display = 'none';
+	}
+}
+//单纯提示信息
+function opentip(Info){
+	var t = new dialog();
+	t.init();
+	t.set('title',Info);
+	t.event('', 'closer();','');
+}
+//是和否2个选择的提示
+function opensel(Info,ok,esc){
+	var s = new dialog();
+	s.init();
+	s.set('title',''+Info+'');
+	s.event('', ok, esc);
+}
+//焦点从提示框返回到原页面
+function closer(){
+
+}
+</script>
+		<table cellspacing=1 cellpadding=4 class=table>
+			<tr>
+				<th colspan=2><{$tit}>管理</th>
+			</tr>
+			<tr>
+				<td colspan=2 height=30>
+					当前默认规则：
+<br>1、"线路"，"旅游"，"之旅"，"游"自动视为查找线路，除开左侧4个词之外的关键词，根据关键词查找线路名称中包含的。<br>2、签证，如：“日本签证”<br>3、门票、景点，如：“厦门景点”<br>除此之外，可自定义自动回复的内容，比如：客户发送“在？”，“是否有去哪里哪里玩的团购”，“去哪里游玩”或这类词，我们设定自动回复的内容，有纯文字和图文消息。
+				</td>
+			</tr>
+		</table>
+		
+		<table cellspacing=1 cellpadding=4 class=table>
+			<tr>
+				<th colspan="2">回复设定</th>
+			</tr>
+			<tr valign="top">
+				<td width="20%">
+					<table class="table2" align="center">
+                        <{foreach name=outer item=contact from=$comments}><tr>
+							<td colspan=2><img border=0 src='css/images/s_left_sort.gif' align=absmiddle>&nbsp;<a href='?id=<{$contact.id}>'<{if $id eq $contact.id}>class='red2'<{/if}>><{$contact.title}></a></td>
+						</tr><{/foreach}>
+					</table>
+				</td>
+				<td>
+					<table cellspacing=1 cellpadding=3 class=table>
+                    <tr>
+                        <td class=td width='20%'></td>
+                        <td class=td width='80%'><{$tit}>设定</td>
+                    </tr>
+                    <form name="add_frm" action="?action=handle" method="post" onsubmit="return chk_frm(this);">
+                        <input type="hidden" name="id" value="<{$info.id}>">
+                        <tr>
+                            <td><{$tit}>关键词：</td>
+                            <td><input type="text" name="title" size="30" value='<{$info.title}>'>&nbsp;<font class=red>*</font>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>回复类型：</td>
+                            <td><select name="types"><{html_options options=$types selected=$info.types}></select></td>
+                        </tr>
+                        <tr>
+                            <td>内容筛选：</td>
+                            <td><select name="ctype"><{html_options options=$ctype selected=$info.ctype}></select> <input type="text" name="keyword" size=12 value='<{$info.keys}>'><input type="button" value="search" onclick="search_req();">（如回复内容是文字请在下面的内容框直接输入）</td>
+                        </tr>
+                        <tr>
+                            <td>回复页面内容：</td>
+                            <td><textarea name="content" style="width:300px;height:100px;"><{$info.content}></textarea></td>
+                        </tr>
+						<tr><td>回复页面预览</td><td><div id="html" style="width:670px;height:200px;scroll:auto;"></div></td></tr>
+                        <tr>
+                            <td></td>
+                            <td height=30><input type=submit value='提交添加'> <input type=reset value='重新填写'></td>
+                        </tr>
+                    </form>
+                	</table>
+				</td>
+			</tr>
+		</table>
+<script tytype="text/javascript">
+<!--
+	var ctype=$("select[name='ctype']");
+	var types=$("select[name='types']");
+	var keys=$("input[name='keys']");
+	var html=$("#html");
+	var content=$("textarea[name='content']");
+	var title=$("input[name='title']");
+	function search_req(){
+		$.getJSON("getajax.php?q=getxml&ctype="+ctype.val()+"&type="+types.val()+"&keys="+keys.val(), function(data){
+			//alert(data);
+			content.val(data);
+			html.html(data);
+		});
+	}
+	opentip("Info");
+	title.blur(html_init);
+	function html_init(){
+		keys.val(title.val());
+	}
+	function chk_frm(frm){
+		if(frm.title.value==""){
+			alert();frm.title.focus();return false;
+		}else if(frm.types.value==""){
+			alert();frm.title.focus();return false;
+		}else if(frm.content.value==""){
+			alert();frm.title.focus();return false;
+		}else{
+			return true;
+		}
+	}
+-->
+</script>
+<{include file="./templates/admin_tpl_foot.html"}>

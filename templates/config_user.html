@@ -1,0 +1,82 @@
+<{include file="./templates/admin_tpl_head.html"}>
+<table cellspacing=1 cellpadding=4 class=table>
+	<form name=sel_form action='?action=delete' method=post>
+		<tr>
+			<th><input type="checkbox" name="sel_all" value="yes"></th>
+			<th>用户</th>
+			<th>性别</th>
+			<th>所属地</th>
+			<th>分组</th>
+			<th>关注时间</th>
+			<th>管理</th>
+		</tr>
+		<tbody id="usergroups"><{if $totalnum==0}><tr>
+			<td colspan=7>没有数据</td>
+		</tr>
+		<{else}><tr align="center">
+			<td><input type="checkbox" name="sel_id" value="<{$userlist[web].openid}>"></td>
+			<td valign="middle"><img  src='<{$userlist[web].headimgurl}>' width=132 height=132> <{$userlist[web].nickname}></td>
+			<td><{$userlist[web].sex}></td>
+			<td><{$userlist[web].province}></td>
+			<td><{$userlist[web].groupid}></td>
+			<td><{$userlist[web].subscribe_time}></td>
+			<td><a href='?action=edit&id=<{$userlist[web].id}>'>编辑</a></td>
+		</tr></tbody>
+		<tr>
+			<td colspan="7"><div id="multipage">现有<font class="red">94</font>条记录，页次：<font class="red">1</font>/<font class="red">7</font>分页：<a href="?action=&amp;page=1">首页</a> | <a href="?action=&amp;page=1">上页</a> | <a href="?action=&amp;page=2">下页</a> | <a href="?action=&amp;page=7">尾页</a></div><{$multipage}></td>
+		</tr><{/if}>
+	</form>
+</table>
+
+<script type="text/javascript">
+var page = 1;
+var perpage=15;
+var totalnum = <{$totalnum}>;
+var pagecount= Math.ceil(totalnum/perpage);
+var userjson = <{$json}>;
+userjson.sort(getSortFun('desc', 'subscribe_time'));
+var groups = <{$groups}>;
+groups.sort(getSortFun('asc', 'id'));
+function show_page(p){
+	page = p<=0?1:p;
+	page = p>pagecount?pagecount:p;
+	var liststr = '';
+	for(var i=(page-1)*perpage;i<perpage*page;i++){
+		if(i<totalnum){
+		liststr +='<tr align="center"><td><input type="checkbox" name="sel_id" value="'+userjson[i]["openid"]+'"></td><td align="left" valign="middle"><img src="'+userjson[i]["headimgurl"]+'" style="width:132px;height:132px;margin:10px;">'+userjson[i]["nickname"]+'</td><td>'+getSex(userjson[i]["sex"])+'</td><td>'+userjson[i]["province"]+'</td><td>'+getGroup(userjson[i]["groupid"])+'</td><td>'+getLocalTime(userjson[i]["subscribe_time"])+'</td><td><a href="javascript:void(0);">编辑</a></td></tr>';
+		}else{
+			break;
+		}
+	}
+	$("#usergroups").html(liststr);
+	multipages();
+}
+function multipages(){
+	$("#multipage").html('现有<font class="red">'+totalnum+'</font>条记录，页次：<font class="red">'+page+'</font>/<font class="red">'+pagecount+'</font>分页：<a href="javascript:void(0);" onclick="show_page(1);">首页</a> | <a href="javascript:void(0);" onclick="show_page('+(page-1)+');">上页</a> | <a href="javascript:void(0);" onclick="show_page('+(page+1)+');">下页</a> | <a href="javascript:void(0);" onclick="show_page('+pagecount+');">尾页</a>');
+}
+function getLocalTime(s) {     
+   return new Date(parseInt(s) * 1000).toLocaleString().replace(/:d{1,2}$/,' ');
+}
+function getSex(s){
+	return s===1?"男":"女";
+}
+function getGroup(s){
+	if(s==0){return "默认组";}
+	for(var i=1;i<groups.length;i++){
+		if(groups[i]["id"]==s){
+			return groups[i]["name"];
+			break;
+		}
+	}
+	return "未分组";
+}
+function getSortFun(order, sortBy) {
+    var ordAlpah = (order == 'asc') ? '>' : '<';
+    var sortFun = new Function('a', 'b', 'return a.' + sortBy + ordAlpah + 'b.' + sortBy + '?1:-1');
+    return sortFun;
+}
+$(function(){
+	show_page(1);
+});
+</script>
+<{include file="./templates/admin_tpl_foot.html"}>

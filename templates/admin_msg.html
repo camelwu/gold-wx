@@ -1,0 +1,60 @@
+<{include file="./templates/admin_tpl_head.html"}>
+<{if $action eq "rep"}>
+<table cellspacing=1 cellpadding=4 class=table>
+	<form name="sel_form" action='?action=delete' method="post">
+    <input type="hidden" name="ToUserName" value="<{$openid}>">
+    <input type="hidden" name="FromUserName" value="gh_4090246579e3">
+		<tr>
+			<th>回复信息</th>
+		</tr>
+		<tr>
+			<td><a href="#here">图文</a><a href="#here">文字</a><a href="#here">音频</a><a href="#here">视频</a><textarea name="content" style="width:870px;height:210px;">dddd</textarea></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="回复"></td>
+		</tr>
+	</form>
+</table>
+<table cellspacing=1 cellpadding=4 class=table>
+<{foreach from=$comments item=web}><tr align="center">
+			<td><img src='<{$web.headimgurl}>' width=48 height=48></td>
+            <td width="40%" align="left"><a href="?action=rep&openid=<{$web.openid}>&page=<{$page}>"><strong><{$web.nickname}></strong></a><br> <{$web.Content}></td>
+			<td><{$web.time}></td>
+			<td><a href='javascript:fav(<{$web.id}>);'>收藏</a> <a href="?action=rep&openid=<{$web.openid}>&page=<{$page}>">回复</a></td>
+		</tr>
+<{/foreach}></table>
+<{else}>
+<table cellspacing=1 cellpadding=4 class=table>
+	
+		<tr>
+			<th>ID</th>
+			<th>用户图片</th>
+            <th>发送用户 &amp; 内容</th>
+			<th>发送时间</th>
+			<th>管理</th>
+		</tr>
+		<{if $totalnum eq 0}><tr>
+			<td colspan=6>没有数据</td>
+		</tr>
+		<{else}><{foreach from=$comments item=web}><tr align="center">
+			<td><{$web.id}></td>
+			<td><img src='<{$web.headimgurl}>' width=132 height=132></td>
+            <td width="40%" align="left"><a href="?action=rep&openid=<{$web.openid}>&page=<{$page}>"><strong><{$web.nickname}></strong></a><br> <{$web.Content}></td>
+			<td><{$web.time}></td>
+			<td><a href='javascript:fav(<{$web.id}>);'>收藏</a> <a href="?action=rep&openid=<{$web.openid}>&page=<{$page}>">回复</a></td>
+		</tr><{/foreach}>
+		<tr>
+			<td colspan="6"><{$multipage}></td>
+		</tr><{/if}>
+	
+</table>
+<script type="text/javascript">
+function fav(id){
+	alert('暂无收藏功能！');
+}
+function fav(id){
+	alert('暂无收藏功能！');
+}
+</script>
+<{/if}>
+<{include file="./templates/admin_tpl_foot.html"}>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>旅行计调分销管理平台</title>
+<base target=mainFrame>
+<style type="text/css">
+<!--
+body {
+	margin: 0;
+	background-color: #d4d0c8;
+}
+
+body,p,td {
+	font-family: Verdana, Arial, Helvetica, sans-serif, 宋体;
+	font-size: 12px;
+	color: #000000;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ff3300;
+	text-decoration: underline;
+}
+
+.menu_title {
+	width: 158px;
+	line-height: 25px;
+	margin: 3px auto;
+	background-color: #40afa6;
+	border: 1px solid #ffffff;
+	overflow-x: hidden;
+}
+
+.menu_title .tit {
+	width: 156px;
+	line-height: 25px;
+	margin: 3px auto;
+	color: #fff;
+	cursor: hand;
+	text-align: center;
+	font-weight: bold;
+}
+
+.menu_title .welc {
+	width: 158px;
+	line-height: 25px;
+	text-align: center;
+	background: #e7e7e7;
+}
+
+.menu_title strong {
+	margin-left: 36px;
+	color: #fff;
+	cursor: hand;
+	text-align: center;
+}
+
+.menu_title ul {
+	background: #e7e7e7;
+	overflow: hidden;
+	border: 0px 1px 1px #FFF solid;
+	width: 158px;
+	margin: 0px;
+	padding: 6px 0px 3px 0px;
+}
+
+.menu_title ul li {
+	list-style: none;
+	line-height: 21px;
+	height: 21px;
+	padding-left: 10px;
+}
+
+.menu_title ul.top li {
+	background: url(css/images/s_left.gif) no-repeat left 20px center;
+	padding-left: 28px;
+}
+
+.myfont3 {
+	FONT-SIZE: 12px;
+	COLOR: #878787;
+	LINE-HEIGHT: 18px;
+	LINE-HEIGHT: 23px;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+}
+-->
+</style>
+</head>
+
+<body>
+	<!--管理员信息-->
+	<div class="menu_title">
+		<strong>当前管理员信息</strong>
+		<ul class="top">
+			<li>用户：<b><font color="#FF3300"><{$info.username}></font></b></li>
+			<li>姓名：<{$info.name}></li>
+			<li>身份：<{$info.id}></li>
+			<li>登录：<{$info.login_num}>次</li>
+			<li><a href="admin_pws.php" target="right">修改登录密码</a></li>
+			<li><a href="admins_login.php?action=logout" target="_top">注销退出</a></li>
+			<!-- <li><a href="admin_info.php">修改个人信息</a></li> -->
+			<{if $info.id eq '1'}>
+			<li><a href="config.php" target="right">网站配置</a></li>
+			<li><a href="data.php">数据备份</a></li> <{/if}>
+			<li title="上次登陆时间"><{$info.time2}></li>
+		</ul>
+	</div>
+	<!--管理菜单-->
+	<div class="menu_title">
+    	<strong>系统配置</strong>
+        <ul class="top">
+        	<li><a href="admin_menu.php"	target="right">定义菜单</a></li>
+            <li><a href="admin_request.php"	target="right">自动回复</a></li>
+            <li><a href="admin_msg.php"		target="right">消息列表 </a></li>
+		</ul>
+	</div>
+	<!--管理-->
+	<div class="menu_title">
+    	<strong>功能管理</strong>
+        <ul class="top">
+			<li><a href="admin_user.php"	target="right">用户管理</a></li>
+            <li><a href="admin_send.php"	target="right">群发消息 </a></li>
+            <li><a href="config_log.php"	target="right">群发日志</a></li>
+			<li><a href="admin_allow.php"	target="right">产品列表</a></li>
+			<li><a href="admin_gallery.php"	target="right">素材管理</a></li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>旅行计调分销管理平台</title>
+<style type="text/css">
+a:link { color:#FF3300;text-decoration:none}
+a:hover {color:#FF3300;;text-decoration:underline;}
+a:visited {color:#FF3300;text-decoration:underline;}
+
+body {background-color: #d4d0c8; margin:0px;}
+body,td,th {
+	font-size: 12px;
+	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+</style>
+<script type="text/JavaScript">
+function preloadImg(src){
+	var img=new Image();
+	img.src=src
+}
+preloadImg("css/images/admin_open.gif");
+//
+var displayBar=true;
+function switchBar(obj){
+	if (displayBar){
+		parent.frame.cols="0,*";
+		displayBar=false;
+		obj.src="css/images/admin_open.gif";
+		obj.title="打开左边管理导航菜单";
+	}else{
+		parent.frame.cols="180,*";
+		displayBar=true;
+		obj.src="css/images/admin_close.gif";
+		obj.title="关闭左边管理导航菜单";
+	}
+}
+//
+var today=new Date();
+
+var d=Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+var today_y = (today.getYear() < 1900) ? (1900 + today.getYear()) : today.getYear();
+var today_m = today.getMonth()+1;
+var today_d = today.getDate();
+//document.write("<font color=#FFFFFF>",today_year,"<font color=#FFFFFF>年","<font color=#FFFFFF>",today.getMonth()+1,"<font color=#FFFFFF>月","<font color=#FFFFFF>",today.getDate(),"<font color=#FFFFFF>日 </FONT>"); 
+var today_day  = d[today.getDay()];
+//alert(today_y+"年"+today_m+"月"+today_d+"日"+today_day);
+//
+function outclock(){
+	var Digital=new Date();
+	var hours=Digital.getHours();
+	var minutes=Digital.getMinutes();
+	var seconds=Digital.getSeconds();
+	if(minutes<=9)
+	minutes="0"+minutes;
+	if(seconds<=9)
+	seconds="0"+seconds;
+	myclock=hours+":"+minutes+":"+seconds;
+	document.getElementById("liveclock").innerHTML = today_y+"年"+today_m+"月"+today_d+"日 "+today_day+" "+myclock;
+	setTimeout("outclock()",1000);
+}
+window.onload = function(){outclock();}
+</script>
+</head>
+<body>
+<table width="98%" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tbody><tr>
+    <td width="40"><img onClick="switchBar(this)" src="css/images/admin_close.gif" title="关闭左边管理导航菜单" style="cursor:hand">
+    </td>
+    <td width="490">时间：<span id="liveclock">2015年1月7日 星期三 21:46:19</span></td>
+    <td align="right"><a href="http://weixin.cgbt.net/" target="_blank">浏览网站</a> </td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<{$root}>images/splash/splash-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="<{$root}>images/splash/splash-icon-big.png">
+<link rel="apple-touch-startup-image" href="<{$root}>images/splash/splash-screen.png" 	media="screen and (max-device-width: 320px)" />  
+<link rel="apple-touch-startup-image" href="<{$root}>images/splash/splash-screen@2x.png" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" /> 
+<link rel="apple-touch-startup-image" href="<{$root}>images/splash/splash-screen-six.png" media="(device-width: 375px)">
+<link rel="apple-touch-startup-image" href="<{$root}>images/splash/splash-screen-six-plus.png" media="(device-width: 414px)">
+<link rel="apple-touch-startup-image" sizes="640x1096" href="<{$root}>images/splash/splash-screen@3x.png" />
+<link rel="apple-touch-startup-image" sizes="1024x748" href="<{$root}>images/splash/splash-screen-ipad-landscape" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : landscape)" />
+<link rel="apple-touch-startup-image" sizes="768x1004" href="<{$root}>images/splash/splash-screen-ipad-portrait.png" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : portrait)" />
+<link rel="apple-touch-startup-image" sizes="1536x2008" href="<{$root}>images/splash/splash-screen-ipad-portrait-retina.png"   media="(device-width: 768px)	and (orientation: portrait)	and (-webkit-device-pixel-ratio: 2)"/>
+<link rel="apple-touch-startup-image" sizes="1496x2048" href="<{$root}>images/splash/splash-screen-ipad-landscape-retina.png"   media="(device-width: 768px)	and (orientation: landscape)	and (-webkit-device-pixel-ratio: 2)"/>
+
+<title>旅游_旅游网_旅游线路_自助游_自驾游_公司旅游_金桥旅游网</title>
+
+<link href="<{$root}>styles/style.css"			rel="stylesheet" type="text/css">
+<link href="<{$root}>styles/framework.css"		rel="stylesheet" type="text/css">
+<link href="<{$root}>styles/owl.theme.css"		rel="stylesheet" type="text/css">
+<link href="<{$root}>styles/swipebox.css"		rel="stylesheet" type="text/css">
+<link href="<{$root}>styles/font-awesome.css"	rel="stylesheet" type="text/css">
+<link href="<{$root}>styles/animate.css"		rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="<{$root}>scripts/jquery.js"></script>
+<script type="text/javascript" src="<{$root}>scripts/jqueryui.js"></script>
+<script type="text/javascript" src="<{$root}>scripts/framework.plugins.js"></script>
+<script type="text/javascript" src="<{$root}>scripts/custom.js"></script>
+<script type="text/javascript">
+
+</script>
+</head>
+<body> 
+<{include file="./moban/loader.tpl"}>
+
+<div class="all-elements">
+	<{include file="./moban/sidebar.tpl"}>
+	<{include file="./moban/header.tpl"}>
+
+    <!-- Page Content-->
+    <div id="content" class="snap-content">        
+        <div class="header-clear"></div>
+        <div class="content">
+
+            <div class="container no-bottom">
+                <h3><{$info.title}></h3>
+                <p><{if $product eq 'product'}><{$info.info|nl2br}><{else}><{$info.feature|nl2br}><{/if}></p>
+            </div>
+            
+            <div class="decoration"></div>
+<{if $enname eq 'sight'}>
+            <div class="timeline">
+                <div class="timeline-decoration" style="height:96%;"></div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                    <div class="timeline-text">
+                        <h3 class="title">景点一览</h3>
+                        <em class="subtitle">游览时间：<{$info.item}>小时</em>
+                        <a class="swipebox" href="<{$info.url}>" title="<{$info.title}>"><img src="<{$info.url}>" alt="img" class="responsive-image"></a>
+						<{if $pic neq ""}><{foreach name=pic item=data from=$pic}><a class="swipebox" href="<{$data.url}>" title="<{$data.title}>"><img src="<{$data.url}>" alt="img" class="responsive-image"></a><{/foreach}><{/if}>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa fa-pencil"></i>
+                    </div>
+                    <div class="timeline-text">
+                        <h3 class="title">景点介绍</h3>
+                        <em class="subtitle">门票价格：￥<{$info.price1}>.0元 </em>
+                        <p><{$info.word|nl2br}></p>
+                    </div>
+                </div>
+                <{if $info.vehicle neq ''}><div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa fa-youtube-play"></i>
+                    </div>
+                    <div class="timeline-text">
+                        <h3 class="title">视频介绍</h3>
+                        <em class="subtitle">比较直观</em>
+                        <iframe class="responsive-video" src="http://player.youku.com/embed/XNzQxMzgyODM2" allowfullscreen></iframe>
+                        <p>宣传性文字，暂时写死，后续看是不是做成添加的。</p>
+                    </div>
+                </div><{/if}>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa fa-quote-left"></i>
+                    </div>
+                    <div class="timeline-text timeline-quote no-bottom">
+                        <h3 class="title">其它信息</h3>
+                        <p>主题类型：<{$info.brand}>，江湖索道：￥<{$info.price}>元，所在方位：<{$info.address}>，<{$info.pos}></p><!--<a href="#" class="subtitle">John Doe, ThemeForest Buyer</a>-->
+                    </div>
+                </div>
+                <div class="timeline-item timeline-ending">
+                    <div class="timeline-icon">
+                        <i class="fa fa-life-bouy"></i>
+                    </div>
+                    <div class="timeline-text timeline-quote no-bottom">
+                        <h3 class="title">购买</h3>
+                        <p><a href="javascript:void(0);" class="button left-button button-blue"><i class="fa fa-shopping-cart"></i>加入购物车</a></p>
+                    </div>
+                </div>
+            </div>
+<{elseif $enname eq 'visa'}>
+            
+<{elseif $enname eq 'features' || $enname eq 'free' || $enname eq 'tour'}>
+            <div class="timeline">
+				<div class="timeline-decoration" style="height:96%;"></div>
+                <div class="timeline-item">
+                	<div class="timeline-icon">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                    <div class="timeline-text">
+                        <h3 class="title">沿途景点</h3>
+                        <em class="subtitle">出发城市：<{$info.city1}> 抵达城市：<{$info.city2}></em>
+                        <a class="swipebox" href="<{$info.url}>" title="<{$info.title}>"><img src="<{$info.url}>" alt="img" class="responsive-image"></a>
+						<{if $pic neq ""}><{foreach name=pic item=data from=$pic}><a class="swipebox" href="<{$data.url}>" title="<{$data.title}>"><img src="<{$data.url}>" alt="img" class="responsive-image"></a><{/foreach}><{/if}>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa fa-pencil"></i>
+                    </div>
+                    <div class="timeline-text">
+                        <h3 class="title">线路介绍</h3>
+                        <em class="subtitle">价格：￥<{$info.price_2}>.0元 </em>
+                        <p><{$info.remark|nl2br}></p>
+                        
+                        <p><{foreach from=$stroke item=web name=stroke}>
+    <h4>第 <{$web.num}> 天</h4>离：<{$web.departure}><{if $web.timd neq ''}> (<{$web.timd}>)<{/if}> - 抵：<{$web.arrived}><{if $web.tima neq ''}> (<{$web.tima}>)<{/if}><br>
+	<{if $web.traffic neq 'null'}><strong>行：</strong> <{$web.traffic}> <{$web.tname}> <br><{/if}>
+	<{if $web.eats neq ''}><strong>食：</strong> <{$web.eats}><br><{/if}>
+	<{if $web.hotel neq ''}><strong>住：</strong> <{$web.hotel}><br><{/if}>
+    <{if $web.scenics neq ''}><strong>娱：</strong><br><{section name=a loop=$web.scenics}><{$web.scenics[a]}><{/section}><{/if}>
+    <div><{$web.content|nl2br}></div>
+	<hr>
+	<{/foreach}></p>
+                    </div>
+                </div>
+                
+                <{if $info.info neq ''}><div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa fa-file-word-o"></i>
+                    </div>
+                    <div class="timeline-text">
+                        <h3 class="title">团体包价</h3>
+                        <em class="subtitle">比较直观</em>
+                        <p><{$info.info|nl2br}></p>
+                    </div>
+                </div><{/if}>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa fa-quote-left"></i>
+                    </div>
+                    <div class="timeline-text timeline-quote no-bottom">
+                        <h3 class="title">其它信息</h3>
+                        <p>旅行时间：<{$info.go_day}>天，出发时间：<{$info.go_time}><br/>集合地点：<{section name=i loop=$addr}><{$addr[i]}>&nbsp;<{$tim[i]}><{/section}></p><!--<a href="#" class="subtitle">John Doe, ThemeForest Buyer</a>-->
+                    </div>
+                </div>
+                <div class="timeline-item timeline-ending">
+                    <div class="timeline-icon">
+                        <i class="fa fa-life-bouy"></i>
+                    </div>
+                    <div class="timeline-text timeline-quote no-bottom">
+                        <h3 class="title">购买</h3>
+                        <p><a href="javascript:void(0);" class="button left-button button-blue"><i class="fa fa-shopping-cart"></i>加入购物车</a></p>
+                    </div>
+                </div>
+                
+			</div>            
+<{else}>
+            
+<{/if}>
+            <div class="decoration"></div>
+            
+        </div>
+		<{include file="./moban/footer.tpl"}>
+
+    </div>
+
+	<{include file="./moban/share.tpl"}>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+body { background-color: #d4d0c8; margin:0 auto;}
+body,p,td { font-family:Verdana, Arial, Helvetica, sans-serif, 宋体; font-size:12px; color:#000000; }
+tr { background-color: #e7e7e7; }
+a { color: #000000; text-decoration: underline }
+a:hover { color: #ff3300; text-decoration: underline }
+.bg { background-color: #d4d0c8; }
+.bg_2 { background-color: #e7e7e7; }
+.tables { border:1px; background-color: #d4d0c8; }
+
+.table0 { width:100%; border: 1px; background-color: #d4d0c8; }
+.table1 { width:90%; border:0px; background-color: #e7e7e7; margin:3px auto; }
+.table2 { width:85%; border: 0px; }
+.table3 { width:98%; }
+.tr { background-color: #e7e7e7; height: 20px; }
+.tr0 { background-color: #d4d0c8; }
+.tr1 { background-color: #dddddd; }
+.tr2 { background-color: #D7D7D7; height: 20px; }
+.tr3 { background-color: #f7f7f7; height: 20px; }
+.td { background-color: #40afa6; color: #ffffff; font-weight:bold; cursor: hand; height:20px; }
+.div_alt { width:240px; margin-left:18px; border:1px solid black; background-color:#ffffe1; color:#000000; padding:2px; }
+.tims { color: #808080; font-size:7pt; }
+.htd { line-height:180% }
+.red { color:#ff3300 }
+.red2 { color:#CC3300; }
+.read { color:#3131CE }
+.blue { color: #0066cc; }
+.gray { color: #808080; }
+
+/*new*/
+.table { width:98%; border:1px; background-color: #d4d0c8; margin:0 auto 2px auto;}
+.table th { background-color: #40AFA6; color:#FFF; font-size:14px; font-weight:bold;line-height:24px;}
+.table tr { background-color: #e7e7e7; height:22px;}
+.table td { height:22px; line-height:22px;}
+/*news图文*/
+#news{
+	width:318px;
+	margin:2px auto;
+}
+.appmsg_edit_mask {background-color: rgba(0,0,0,0.2);padding:0 40px;}
+.add_item {
+	text-align: center;
+	border:#ccc 1px dashed;
+	padding: 20px 10px;
+}
+.cover_appmsg_item .appmsg_title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000',endcolorstr = '#99000000');
+}
+.first_item .appmsg_thumb_wrp {
+    height: 160px;
+    overflow: hidden;
+}
+.first_item ,.normal_item {
+	position:relative;
+}
+.first_item .appmsg_title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000',endcolorstr = '#99000000');
+}
+.first_item .appmsg_edit_mask {
+	position:absolute;
+	width:100%;
+	height:100px;
+	top:0;
+	padding:0;
+	padding-top: 60px;
+	text-align: center;
+}
+.first_item .appmsg_title a {
+    padding: 0 8px;
+    color: #fff;
+    text-decoration:none;
+    line-height:30px;
+}
+.appmsg_add {
+	width:100%;
+	margin: 20px 14px;
+}
+.first_item img{
+	width:318px;
+	height:160px;
+}
+.normal_item img{
+	width:78px;
+	height:78px;
+}
+.normal_item .appmsg_title {
+	position:absolute;
+	width:260px;
+	margin-top: 10px;
+}
+.normal_item .appmsg_thumb_wrp {
+    position:absolute;
+    width: 90px;
+    height: 90px;
+    right:0px;
+    top:10px;
+}
+.normal_item .appmsg_edit_mask {
+	width:100%;
+	height:70px;
+	top:0;
+	padding:0;
+	padding-top: 30px;
+	text-align: center;
+}
+.normal_item .appmsg_edit_mask a{
+	margin-right: 10px;
+}
+/*dialogBox*/
+#dialogCase{
+	position: absolute;
+	position:fixed;
+    margin: 0;
+    padding: 0;
+}
+#dialogBox{
+	position:fixed;
+	background-color: #FFF;
+    width: 100%;
+    height: 100%;
+    color: #333;
+    border: 1px solid #A0A0A0;
+}
+#dialogBoxShadow{
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-shadow: 3px 3px 7px #999;
+	-moz-box-shadow: 3px 3px 7px #999;
+	-webkit-box-shadow: 3px 3px 7px #999;
+	filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3', MakeShadow='true', ShadowOpacity='0.4');
+	background-color: #F0F0EE;
+}
+#dialog-header{
+	display:block;
+	
+	
+	border: 0;
+    margin: 0;
+    padding: 0 10px;
+    background: #F0F0EE;
+    border-bottom: 1px solid #CFCFCF;
+    height: 24px;
+    font: 12px/24px "sans serif",tahoma,verdana,helvetica;
+    text-align: left;
+    color: #222;
+    /*cursor: move;*/
+}
+#dialog-header a{
+	display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    cursor: pointer;
+}
+#dialog-body {
+    font: 12px/1.5 "sans serif",tahoma,verdana,helvetica;
+    text-align: left;
+    overflow: hidden;
+    width: 100%;
+}
+#dialogFunc{
+	font: 12px/1 "sans serif",tahoma,verdana,helvetica;
+	text-align: right;
+	padding:0 0 5px 0;
+	background-color: #FFF;
+	width: 100%;
+}

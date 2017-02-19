@@ -1,0 +1,82 @@
+<{include file="./templates/admin_tpl_log.html"}>
+	<table cellspacing=1 cellpadding=4 class=table>
+        <tr>
+            <th colspan="2">自定义菜单</th>
+        </tr>
+        <form name=add_frm action='?action=add' method=post>
+        <tr>
+            <td width='17%'><{$tit}>名称：</td>
+            <td><input type='text' name='title' size='10' maxlength="7"/>&nbsp;<font class=red>*</font>(一级菜单最多4个字，二级最多7个字)</td>
+        </tr>
+        <tr>
+            <td>上级分类：</td>
+            <td><select name="pid"><option value="0">一级菜单</option><{html_options options=$pid selected=0}></select></td>
+        </tr>
+        <tr>
+            <td>事件类型：</td>
+            <td><select name="type"><{html_options options=$otype selected=0}></select></td>
+        </tr>
+        <tr>
+            <td>地址/事件Key值：</td>
+            <td><input type="text" name="html" size="30">&nbsp;<font class=red>*</font></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td height=30><input type='submit' value='提交添加'/> <input type="reset" value="重新填写"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td height=30><font class=red>&nbsp;(一级菜单最多3个，二级菜单最多5个)</font></td>
+        </tr>
+        </form>
+    </table>
+    <table cellspacing="1" cellpadding="4" class="table">
+    <form name='list_frm' action='?action=handle' method=post>
+	<tr><th height="30">排序</th><th>名称</th><th>事件</th><th>地址/事件Key值</th><th>操作</td></tr>
+	<{foreach item=web from=$res}><tr align="center" id="tr<{$web.id}>">
+        <td><input type=hidden name='id' id="id<{$web.id}>" value='<{$web.id}>'><{if $web.pid eq 0}>一级<{else}><select name="pid" id="pid<{$web.id}>">
+      <{html_options options=$pid selected=$web.pid}>
+    </select><{/if}></td>
+        <td><input type="text" name="title" id="title<{$web.id}>" value="<{$web.title}>"></td>
+        <td><select name="type" id="type<{$web.id}>"><{html_options options=$otype selected=$web.type}></select></td>
+        <td><input type="text" name="html" id='html<{$web.id}>' value="<{$web.html}>"></td>
+<td><a href='javascript:editc(<{$web.id}>);'>修改</a> <a href='?id=<{$web.id}>&action=del' onclick="javascript:return del_nsort('<{$web.title}>','<{$web.pid}>');">删除</a>&nbsp;<a href='?pid=<{$web.pid}>&id=<{$web.id}>&hots=<{$web.hots}>&action=up'><img border=0
+                    src='css/images/up_1.gif' alt='向上移动此主分类' align=absmiddle></a>&nbsp;<a href='?pid=<{$web.pid}>&id=<{$web.id}>&hots=<{$web.hots}>&action=down'><img border=0
+                    src='css/images/down_1.gif' alt='向下移动此主分类' align=absmiddle></a></td>
+	</tr><{/foreach}>
+	<tr><td colspan="5" align="center" height="35"> <input type=submit value='提交到微信'> <!--<input type=button value='从微信上下载'>--></td></tr>
+	</tbody></form></table>
+<form name="edt_frm" action="?action=editc" method="post"><input type=hidden name='id'><input type=hidden name='pid'><input type=hidden name='title'><input type=hidden name='type'><input type=hidden name='html'></form>
+	<script type="text/javascript">
+	function editc(s){
+		var edt = document.edt_frm;
+		var ids = $("#id"+s);
+		edt.id.value=$("#id"+s).val();
+		edt.pid.value=document.getElementById("pid"+s)?$("#pid"+s+" option:selected").val():0;
+		
+		edt.title.value=$("#title"+s).val();
+		edt.type.value=$("#type"+s+" option:selected").val();
+		edt.html.value=$("#html"+s).val();
+		edt.submit();
+		
+	}
+
+	function del_nsort(t2,t3){
+		if (t3=="0"){
+			var cf=window.confirm("您确定要删除主分类（"+t2+"）吗？\n其下的二级分类也将一并删除！\n\n删除后将不可恢复！是否确定该操作？");
+			if (cf)
+				return true;
+			else
+				return false;
+		}else{
+			var cf1=window.confirm("您确定要删除二级分类（"+t2+"）吗？\n\n删除后将不可恢复！是否确定该操作？");
+			if (cf1)
+				return true;
+			else
+				return false;
+		}
+		return false;
+	}
+-->
+</script>
+<{include file="./templates/admin_tpl_foot.html"}>

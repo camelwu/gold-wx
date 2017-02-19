@@ -1,0 +1,48 @@
+<{include file="./templates/admin_tpl_log.html"}>
+<table cellspacing=1 cellpadding=4 class=table>
+	<tr><th colspan=2><{$tit}>管理</th></tr>
+	<tr><td align=center colspan=2 height=30>
+	<a href='?types=image'>图片库</a>
+	<a href='?types=news' style="margin-left: 10px;">图文消息</a>
+	
+	</td></tr>
+	<tr><td align=center>
+	<table border=0 cellspacing=0 cellpadding=2>
+	<form action='?action=list' method=get>
+	<input type=hidden name=types value='<{$types}>'>
+	<tr>
+	<td>搜索（<{$tit}>列表） 关键字：</td>
+	<td><input type=text name="keywords" value="<{$keywords}>" size=15 maxlength=20></td>
+	<td><input type=submit value='搜索'></td>
+	</tr>
+	</form>
+	</table>
+	</td></tr>
+</table>
+<{if $types eq 'image'}>
+<table cellspacing=1 cellpadding=4 class=table>
+	<form name=sel_form action='?action=delete' method=post>
+		<tr>
+			<th>ID</th>
+			<th><{$tit}>图片</th>
+			<th><{$tit}>名称</th>
+			<th><{$tit}>编号（编号为空是临时素材）</th>
+			<th>上传时间</th>
+		</tr>
+		<{foreach from=$res item=web}>
+		<tr align=center>
+			<td><{$web.id}></td>
+			<td><img src="<{$web.url}>" border="0" width=140 height=140></td>
+			<td><{$web.title}></td>
+			<td><{$web.media_id}></td>
+			<td><{$web.created_at}></td>
+		</tr>
+		<{/foreach}>
+		<tr>
+			<td colspan=7><{$multipage}></td>
+		</tr>
+	</form>
+</table>
+<{else}>
+<{/if}>
+<{include file="./templates/admin_tpl_foot.html"}>
