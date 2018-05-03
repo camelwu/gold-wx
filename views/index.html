@@ -1,11 +1,13 @@
-<!DOCTYPE HTML><head>
+<!DOCTYPE HTML>
+<html>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="green">
 <meta name="Keywords" content="北京旅游,北京地接,金桥旅游网">
 <meta name="Description" content="准特许经营大陆居民赴台旅游业务,中国金桥旅游有限公司以其经营实力先后加入中国旅游协会、中国旅行协会、">
-
+<title><%=title%></title>
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/splash/splash-icon.png">
 <link rel="apple-touch-icon-precomposed" sizes="180x180" href="images/splash/splash-icon-big.png">
 <link rel="apple-touch-startup-image" href="images/splash/splash-screen.png" 	media="screen and (max-device-width: 320px)" />  
@@ -18,8 +20,6 @@
 <link rel="apple-touch-startup-image" sizes="1536x2008" href="images/splash/splash-screen-ipad-portrait-retina.png"   media="(device-width: 768px)	and (orientation: portrait)	and (-webkit-device-pixel-ratio: 2)"/>
 <link rel="apple-touch-startup-image" sizes="1496x2048" href="images/splash/splash-screen-ipad-landscape-retina.png"   media="(device-width: 768px)	and (orientation: landscape)	and (-webkit-device-pixel-ratio: 2)"/>
 
-<title>旅游_旅游网_旅游线路_自助游_自驾游_公司旅游_金桥旅游网</title>
-
 <link href="styles/framework.css" 		 rel="stylesheet" type="text/css">
 <link href="styles/style.css"     		 rel="stylesheet" type="text/css">
 <link href="styles/owl.theme.css" 		 rel="stylesheet" type="text/css">
@@ -31,29 +31,26 @@
 <script type="text/javascript" src="scripts/jqueryui.js"></script>
 <script type="text/javascript" src="scripts/framework.plugins.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
-
 </head>
-<body> 
 
-<{include file="./moban/loader.tpl"}>
-
-
-<div class="all-elements">
-    <{include file="./moban/sidebar.tpl"}>
-    <{include file="./moban/header.tpl"}>
-
+<body>
+  <%- include("loader.html") -%>
+  <div class="all-elements">
+    <%- include("sidebar.html") -%>
+    <%- include('header.html', {enname: enname}) %>
     <!-- Page Content-->
     <div id="content" class="snap-content">        
         <div class="slider-container full-bottom">
             <div class="homepage-slider" data-snap-ignore="true">                
-                <!--homepage-left|center|right-caption--><{foreach name=banner item=cont from=$banner}><div>
+                <!--homepage-left|center|right-caption--><% cont.forEach(function(xl){ %>
+                    <div>
                     <div class="overlay"></div>
                     <div class="homepage-slider-caption homepage-left-caption">
-                        <h3><{$cont.title}></h3>
-                        <p><{$cont.content}></p>
+                        <h3><%=xl.title%></h3>
+                        <p><%=xl.content%></p>
                     </div>
-                    <a href="<{$cont.mypath}>"><img src="<{$cont.url}>" class="responsive-image" alt="img"></a>
-                </div><{/foreach}>
+                    <a href="<%=xl.mypath%>"><img src="<%=xl.url%>" class="responsive-image" alt="img"></a>
+                </div><% }); %>
             </div>
         </div>
         
@@ -73,16 +70,16 @@
             <div class="decoration"></div>
             
             <div class="container no-bottom">
-                <!-- Page Columns-->
-            	<{foreach name=route item=xl from=$hots}><div class="one-half-responsive<{if $smarty.foreach.route.index is odd by 1}> last-column<{/if}>">
-                    <p class="thumb-<{if $smarty.foreach.route.index is even by 1}>left<{else}>right<{/if}> no-bottom">
-                        <img src="<{$xl.url}>" alt="<{$xl.title}>">
-                        <strong><a href="feature/<{$xl.id}>"><{$xl.title}></a></strong>
-                        <em><br><{$xl.feature}></em>
+                <!-- Page Columns--><% banner.forEach(function(xl, index){ %>
+                    <div class="one-half-responsive<% if(index%2==1){ %> last-column <% } %>">
+                    <p class="thumb-<% if(index%2==0){ %>left<% }else{ %>right<%}%> no-bottom">
+                        <img src="<%=xl.url%>" alt="<%=xl.title%>">
+                        <strong><a href="feature/<%=xl.id%>"><%=xl.title%></a></strong>
+                        <em><br><%=xl.feature%></em>
                     </p>
                     <div class="thumb-clear"></div>
                 </div>
-                <div class="decoration hide-if-responsive"></div><{/foreach}>
+                <div class="decoration hide-if-responsive"></div><% }); %>
                 
              </div>
             <div class="decoration"></div>
@@ -98,15 +95,16 @@
                 <a href="#" class="next-staff"></a>
                 <a href="#" class="prev-staff"></a>
                 <div class="staff-slider" data-snap-ignore="true">
-                    <{foreach name=free item=xl from=$cjfree}><div>
+                    <% cjfree.forEach(function(xl){ %>
+                    <div>
                         <div class="staff-item">
-                            <img src="<{$xl.url}>" alt="<{$xl.title}>">
-                            <h4><{$xl.title}></h4>
-                            <em><{$xl.city1}>•<{$xl.city2}></em>
-                            <strong><{$xl.feature}></strong>
-                            <a href="free/<{$xl.id}>" class="button button-green center-button">View</a>
+                            <img src="<%=xl.url%>" alt="<%=xl.title%>">
+                            <h4><%=xl.title%></h4>
+                            <em><%=xl.city1%>•<%=xl.city2%></em>
+                            <strong><%=xl.feature%></strong>
+                            <a href="free/<%=xl.id%>" class="button button-green center-button">View</a>
                         </div>
-                    </div><{/foreach}>
+                    </div><% }); %>
                     
                 </div>
             </div>  
@@ -121,12 +119,12 @@
         	<div class="decoration"></div>
             <div class="container">
                 <div class="one-half-responsive">
-                    <img src="<{$project.url}>" alt="<{$project.title}>" class="responsive-image">
+                    <img src="<%=project.url%>" alt="<%=project.title%>" class="responsive-image">
                 </div>
                 <div class="one-half-responsive last-column">
-                    <h3 class="center-if-mobile no-bottom"><a href="tour/<{$project.id}>"><{$project.name}></a></h3>
-                    <em class="center-if-mobile small-text half-bottom"><{$project.title}></em>
-                    <p class="center-if-mobile no-bottom"><{$project.feature}></p>
+                    <h3 class="center-if-mobile no-bottom"><a href="tour/<%=project.id%>"><%=project.name%></a></h3>
+                    <em class="center-if-mobile small-text half-bottom"><%=project.title%></em>
+                    <p class="center-if-mobile no-bottom"><%=project.feature%></p>
                 </div>
             </div>
             <div class="decoration"></div>
@@ -139,12 +137,12 @@
             
             <div class="decoration"></div>       
             <div class="quote-slider full-bottom" data-snap-ignore="true">
-                <{foreach name=books item=news from=$news}><div>
+                    <% news.forEach(function(xl)){ %><div>
                     <h4>
-                        <{$news.word}>
+                        <%=xl.word%>
                     </h4>
-                    <a href="/blog/<{$news.id}>"><{$news.addtime}> - Read More</a>
-                </div><{/foreach}>
+                    <a href="/blog/<%=xl.id%>"><%=xl.addtime%> - Read More</a>
+                </div><% }); %>
                 
             </div>
             <div class="decoration"></div> 
@@ -157,20 +155,23 @@
             
             <div class="decoration"></div> 
             <ul class="gallery square-thumb">
-                <{foreach name=sight item=jd from=$scenic}><li><a class="swipebox" href="<{$jd.url}>" title="<{$jd.title}> 价格：￥<{$jd.price1}>元"><img src="<{$jd.url}>" alt="img" /></a><br><a href="/sight/<{$jd.id}>"><{$jd.title}></a></li><{/foreach}>
+                <% scenic.forEach(function(jd)){ %>
+                <li>
+                  <a class="swipebox" href="<%=jd.url%>" title="<%=jd.title%> 价格：￥<%=jd.price1%>元">
+                    <img src="<%=jd.url%>" alt="img" />
+                  </a>
+                  <br><a href="/sight/<%=jd.id%>"><%=jd.title%></a>
+                </li>
+                <% }); %>
                 <!--<li><a class="swipebox" href="images/pictures/4.jpg" title="An awesome gallery!"><img src="images/pictures/4s.jpg" alt="img" /></a></li>-->
             </ul>
             
             <div class="decoration"></div>
             
         </div>
-		<{include file="./moban/footer.tpl"}>
-        
+		<%- include("footer.html") -%>
     </div>
-
-	<{include file="./moban/share.tpl"}>
-
 </div>
-
+<%- include("share.html") -%>
 </body>
-
+</html>

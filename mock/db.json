@@ -1,0 +1,243 @@
+{
+    "cont":[
+        {
+            "id": "398",
+            "title": "测试数据",
+            "content": "说了很多的话，算不算数呢？",
+            "mypath": "/",
+            "url": "images/03.jpg"
+        },{
+            "id": "399",
+            "title": "测试数据",
+            "content": "说了很多的话，算不算数呢？",
+            "mypath": "/",
+            "url": "images/03.jpg"
+        },{
+            "id": "298",
+            "title": "测试数据",
+            "content": "说了很多的话，算不算数呢？",
+            "mypath": "/",
+            "url": "images/03.jpg"
+        },{
+            "id": "299",
+            "title": "测试数据",
+            "content": "说了很多的话，算不算数呢？",
+            "mypath": "/",
+            "url": "images/03.jpg"
+        },{
+            "id": "318",
+            "title": "测试数据",
+            "content": "说了很多的话，算不算数呢？",
+            "mypath": "/",
+            "url": "images/03.jpg"
+        }
+    ],
+    "news": {
+        "code": 0,
+        "msg": "OK",
+        "data": {
+            "map": {
+                "transactionTag": "",
+                "pageCount": 1,
+                "userNo": "100041176703",
+                "pageSize": 12,
+                "totalCount": 11,
+                "logKey": "1523169192846_100041176703__",
+                "transactionType": "",
+                "totalNum": 11,
+                "pageNo": 1,
+                "clientIp": "10.144.26.209",
+                "transactionList": [
+                    {
+                        "moneySign": "+",
+                        "transactionTag": "030",
+                        "bankCode": "",
+                        "transactionSource": "010",
+                        "transactionStatus": "020",
+                        "bankIcon2": "",
+                        "refundTime": "",
+                        "bankIcon1": "",
+                        "poundage": "0",
+                        "transactionNo": "2018032801010000008",
+                        "refundStatus": "",
+                        "bankName": "",
+                        "businessFrom": "",
+                        "transactionTime": "20180328103702",
+                        "cardNoShort": "",
+                        "productName": "",
+                        "transactionType": "03",
+                        "payType": "",
+                        "transactionAmount": 110,
+                        "transactionState": "020"
+                    },
+                    {
+                        "moneySign": "+",
+                        "transactionTag": "030",
+                        "bankCode": "",
+                        "transactionSource": "010",
+                        "transactionStatus": "020",
+                        "bankIcon2": "",
+                        "refundTime": "",
+                        "bankIcon1": "",
+                        "poundage": "0",
+                        "transactionNo": "2018032801010000008",
+                        "refundStatus": "",
+                        "bankName": "",
+                        "businessFrom": "",
+                        "transactionTime": "20180328103702",
+                        "cardNoShort": "",
+                        "productName": "",
+                        "transactionType": "03",
+                        "payType": "",
+                        "transactionAmount": 100,
+                        "transactionState": "020"
+                    },
+                    {
+                        "moneySign": "+",
+                        "transactionTag": "020",
+                        "bankCode": "",
+                        "transactionSource": "010",
+                        "transactionStatus": "020",
+                        "bankIcon2": "",
+                        "refundTime": "",
+                        "bankIcon1": "",
+                        "poundage": "0",
+                        "transactionNo": "2018032801010000008",
+                        "refundStatus": "",
+                        "bankName": "",
+                        "businessFrom": "",
+                        "transactionTime": "20180328103702",
+                        "cardNoShort": "",
+                        "productName": "",
+                        "transactionType": "03",
+                        "payType": "",
+                        "transactionAmount": 14000,
+                        "transactionState": "020"
+                    },
+                    {
+                        "moneySign": "-",
+                        "transactionTag": "010",
+                        "bankCode": "",
+                        "transactionSource": "010",
+                        "transactionStatus": "020",
+                        "bankIcon2": "",
+                        "refundTime": "",
+                        "bankIcon1": "",
+                        "poundage": "0",
+                        "transactionNo": "2018032801010000008",
+                        "refundStatus": "",
+                        "bankName": "",
+                        "businessFrom": "",
+                        "transactionTime": "20180328103702",
+                        "cardNoShort": "",
+                        "productName": "",
+                        "transactionType": "03",
+                        "payType": "",
+                        "transactionAmount": 100,
+                        "transactionState": "020"
+                    }
+                ],
+                "PageNo": 1,
+                "startTime": 1,
+                "endTime": 1,
+                "transactionState": "000"
+            }
+        }
+    },
+    "comments": [
+        {
+            "id": 1,
+            "news_id": 1,
+            "data": [
+                {
+                    "transactionTag": "010",
+                    "content": "支持党中央决定"
+                },
+                {
+                    "businessProperty": {
+                        "sources": "020",
+                        "version": "0.1",
+                        "businessType": "TRANSACTION_QUERYUSERYTRANSACTIONS",
+                        "invokeSource": "GCOIN_MEIDIAN_APP"
+                    },
+                    "userNo": "100041721122",
+                    "pageNo": "1",
+                    "pageSize": "12",
+                    "transactionType": "",
+                    "transactionTag": "010",
+                    "transactionState": "000"
+                },
+                {
+                    "businessProperty": {
+                        "sources": "020",
+                        "version": "0.1",
+                        "businessType": "TRANSACTION_QUERYUSERYTRANSACTIONS",
+                        "invokeSource": "GCOIN_MEIDIAN_APP"
+                    },
+                    "userNo": "100041721122",
+                    "pageNo": "1",
+                    "pageSize": "12",
+                    "transactionType": "",
+                    "transactionTag": "020",
+                    "transactionState": "000"
+                },
+                {
+                    "businessProperty": {
+                        "sources": "020",
+                        "version": "0.1",
+                        "businessType": "TRANSACTION_QUERYUSERYTRANSACTIONS",
+                        "invokeSource": "GCOIN_MEIDIAN_APP"
+                    },
+                    "userNo": "100041721122",
+                    "pageNo": "1",
+                    "pageSize": "12",
+                    "transactionType": "",
+                    "transactionTag": "030",
+                    "transactionState": "000"
+                },
+                {
+                    "businessProperty": {
+                        "sources": "020",
+                        "version": "0.1",
+                        "businessType": "TRANSACTION_QUERYUSERYTRANSACTIONS",
+                        "invokeSource": "GCOIN_MEIDIAN_APP"
+                    },
+                    "userNo": "100041721122",
+                    "pageNo": "1",
+                    "pageSize": "12",
+                    "transactionType": "",
+                    "transactionTag": "040",
+                    "transactionState": "000"
+                },
+                {
+                    "businessProperty": {
+                        "sources": "020",
+                        "version": "0.1",
+                        "businessType": "TRANSACTION_QUERYUSERYTRANSACTIONS",
+                        "invokeSource": "GCOIN_MEIDIAN_APP"
+                    },
+                    "userNo": "100041721122",
+                    "pageNo": "1",
+                    "pageSize": "12",
+                    "transactionType": "",
+                    "transactionTag": "050",
+                    "transactionState": "000"
+                },
+                {
+                    "businessProperty": {
+                        "sources": "020",
+                        "version": "0.1",
+                        "businessType": "TRANSACTION_QUERYUSERYTRANSACTIONS",
+                        "invokeSource": "GCOIN_MEIDIAN_APP"
+                    },
+                    "userNo": "100041721122",
+                    "pageNo": "1",
+                    "pageSize": "12",
+                    "transactionType": "",
+                    "transactionTag": "040",
+                    "transactionState": "000"
+                }
+            ]
+        }
+    ]
+}
